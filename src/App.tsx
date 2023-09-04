@@ -1,5 +1,5 @@
-import { FigmaTree } from '../dist/figma-tree-component'
-import '../dist/style.css'
+import { FigmaTree } from 'figma-tree/dist/index'
+import 'figma-tree/dist/style.css'
 import { useEffect, useState } from 'react'
 
 const api = 'https://mock.apifox.cn/m1/3170270-0-default/data'

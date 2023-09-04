@@ -17,7 +17,7 @@ export default defineConfig({
       name: 'figma-tree',
       formats: ['es', 'umd'],
       // the proper extensions will be added
-      fileName: 'figma-tree-component',
+      fileName: 'figma-tree',
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

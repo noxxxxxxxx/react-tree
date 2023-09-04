@@ -2,13 +2,13 @@
 
 [![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101)](https://github.com/ellerbrock/typescript-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-A React Tree Component
+A React tree component that looks similar to Figma tree
 
 ## How to use
 
 In an ideal scenario, we only store the necessary data in the database. When retrieving data to construct a tree, we may need to extend some attributes in the tree nodes to align with our custom logic. So we need an API to tell the component which nodes can be inserted into other nodes.
 
-1. Confirm whether the attributes are consistent. If they are not consistent, use `fieldNames` to set them.
+Confirm whether the attributes are consistent. If they are not consistent, use `fieldNames` to set them.
 
 ```js
 import { FigmaTree } from 'figma-tree'
