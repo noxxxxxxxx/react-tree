@@ -1,0 +1,228 @@
+:root {
+  --hover-color: #0050c0;
+}
+
+.tree-container {
+  height: 100%;
+  position: relative;
+  padding: 4px 0;
+  overflow: hidden;
+
+  .node-item {
+    position: relative;
+    width: 100%;
+
+    // 选中 箭头旋转 - 子元素隐藏
+    input[name="node-fold"]:checked {
+      & + .node-info .label-fold {
+        background-color: transparent;
+        transform: rotate(-90deg);
+      }
+
+      & ~ .node-children {
+        background-color: #0050c0;
+        display: none;
+      }
+    }
+
+    // 选中状态 颜色
+    .node-info:has(.selected) {
+      background-color: var(--parent-bg-color);
+      color: var(--parent-color);
+      box-shadow: none;
+
+      & ~ .node-children {
+        background-color: var(--children-bg-color);
+        color: var(--children-color);
+      }
+    }
+
+    .node-label {
+      position: relative;
+      padding: 0 4px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      cursor: default;
+      user-select: none;
+      overflow: hidden;
+
+      .node-name {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        letter-spacing: 1px;
+
+        .icon {
+          display: block;
+          margin-right: 6px;
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+
+    // 折叠区域
+    .fold-wrap {
+      position: absolute;
+      left: 4px;
+      height: 100%;
+      top: 0;
+      pointer-events: none;
+    }
+  }
+
+  .lock-dot,
+  .visible-dot {
+    cursor: pointer;
+    text-align: center;
+    width: 12px;
+    display: none;
+  }
+
+  .node-indent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    & > span {
+      display: block;
+      width: var(--node-indent);
+      height: 100%;
+      &:has(label) {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 3px;
+      }
+    }
+  }
+
+  .action {
+    display: grid;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 10px;
+    grid-auto-flow: column;
+    grid-gap: 6px;
+    align-items: center;
+
+    .i-lock:not(.show),
+    .i-unlock,
+    .i-visible,
+    .i-invisible:not(.show) {
+      visibility: hidden;
+    }
+  }
+
+  // item 内部 当前节点自身区域
+  .node-info {
+    position: relative;
+
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--hover-color);
+
+      .i-unlock,
+      .i-visible {
+        visibility: visible;
+      }
+
+      &.selected {
+        border-color: transparent;
+      }
+    }
+
+    &[data-hidden="true"] {
+      & + .node-children {
+        .visible-dot:not(.show + .visible-dot) {
+          display: block;
+        }
+
+        .i-visible {
+          display: none;
+        }
+      }
+    }
+
+    // 根节点不应用 lock 样式
+    &[data-lock="true"]:not([data-root="true"]) {
+      & + .node-children {
+        .lock-dot:not(.show + .lock-dot) {
+          display: block;
+        }
+
+        .i-unlock {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // 拖拽时禁止 hover 效果
+  &[data-status="dragging"] {
+    .node-info:hover {
+      box-shadow: none;
+    }
+  }
+
+  .label-fold {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    pointer-events: all;
+  }
+
+  .lock-wrap,
+  .hidden-wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+// 鼠标移入展示 fold icon
+.tree-mouse-in {
+  &:hover {
+    .label-fold {
+      display: flex;
+    }
+  }
+}
+// 永远展示 fold icon
+.tree-fold-show {
+  .label-fold {
+    display: flex;
+  }
+}
+
+.tree-drop-line {
+  position: absolute;
+  z-index: 1;
+  height: 2px;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  background-color: #0050c0;
+
+  &::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #0050c0;
+  }
+}
+
+.tree-hidden {
+  display: none;
+}

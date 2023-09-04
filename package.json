@@ -6,7 +6,9 @@
     "tree-component",
     "react"
   ],
-  "private": true,
+  "files": [
+    "/dist"
+  ],
   "version": "0.0.1",
   "type": "module",
   "scripts": {

@@ -1,0 +1,43 @@
+.tree-context-menu {
+  --icon: #969696;
+  position: fixed;
+  min-width: 120px;
+  font-size: 12px;
+  padding: 2px 0;
+  border-radius: 4px;
+  color: #343434;
+  background: #fff;
+  visibility: hidden;
+  user-select: none;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.05);
+
+  &[data-paste="false"] {
+    li:nth-child(2) {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #018cf7;
+      color: #fff;
+
+      --icon: #fff;
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+
+    .i-icon {
+      margin-right: 5px;
+    }
+  }
+}
