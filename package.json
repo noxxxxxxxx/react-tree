@@ -20,7 +20,7 @@
     "./package.json": "./package.json"
   },
   "main": "./dist/tree.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "homepage": "https://github.com/noxxxxxxxx/tree",
   "repository": {
