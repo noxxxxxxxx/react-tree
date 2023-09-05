@@ -15,10 +15,10 @@ dependencies:
     specifier: ^2023.8.5
     version: 2023.8.5
   react:
-    specifier: ^18.2.0
+    specifier: '>=18.2.0'
     version: 18.2.0
   react-dom:
-    specifier: ^18.2.0
+    specifier: '>=18.2.0'
     version: 18.2.0(react@18.2.0)
   react-redux:
     specifier: ^8.1.2
@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^0.4.3
     version: 0.4.3(eslint@8.45.0)
   figma-tree:
-    specifier: ^0.0.2
-    version: 0.0.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1)
+    specifier: ^0.0.3
+    version: 0.0.3(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
   postcss:
     specifier: ^8.4.27
     version: 8.4.27
@@ -1653,8 +1653,11 @@ packages:
       reusify: 1.0.4
     dev: true
 
-  /figma-tree@0.0.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1):
-    resolution: {integrity: sha512-MH+5ZO29NFUlnUJVNgbtiT1pvp2NHEmvKIdQdarwGcX0OrIVq4Xns7lJYI0Ao1iFietMyMVxhCKv/JYapFnJhA==}
+  /figma-tree@0.0.3(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
+    resolution: {integrity: sha512-YCtGM3BkIEIalNfsc2XOoti6F1AOU9jO+sg6rlI8ZVThaO8GYJTJXgTnE8XqsIfAvWCaS6T05Fr3T1qq/1+0MA==}
+    peerDependencies:
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
     dependencies:
       '@icon-park/react': 1.4.2(react-dom@18.2.0)(react@18.2.0)
       '@reduxjs/toolkit': 1.9.5(react-redux@8.1.2)(react@18.2.0)

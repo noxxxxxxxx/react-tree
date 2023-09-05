@@ -1,1 +1,1 @@
-export { default as FigmaTree } from '../src/lib/entry'
+export { default as Tree } from '../src/lib/entry'
