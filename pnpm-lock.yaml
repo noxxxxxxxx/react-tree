@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^0.4.3
     version: 0.4.3(eslint@8.45.0)
   figma-tree:
-    specifier: ^0.0.3
-    version: 0.0.3(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+    specifier: ^0.0.4
+    version: 0.0.4(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
   postcss:
     specifier: ^8.4.27
     version: 8.4.27
@@ -1653,8 +1653,8 @@ packages:
       reusify: 1.0.4
     dev: true
 
-  /figma-tree@0.0.3(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
-    resolution: {integrity: sha512-YCtGM3BkIEIalNfsc2XOoti6F1AOU9jO+sg6rlI8ZVThaO8GYJTJXgTnE8XqsIfAvWCaS6T05Fr3T1qq/1+0MA==}
+  /figma-tree@0.0.4(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
+    resolution: {integrity: sha512-eTODv7HW6DllcqB1vHVgbjbraLi4TTorZqUSEyakqyj6IhxXSIsTDdWirPkySjkSS0b0/UcfxYZ8yq5a1PbHTg==}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
