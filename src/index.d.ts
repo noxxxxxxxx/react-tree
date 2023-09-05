@@ -1,6 +1,8 @@
-import { RefObject } from 'react'
+import { RefObject, FC } from 'react'
+declare const Entry: FC<Props & ConfigProps>
+export default Entry
 
-export {}
+// export {}
 
 declare module '*.scss'
 
