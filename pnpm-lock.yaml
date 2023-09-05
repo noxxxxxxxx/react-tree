@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^0.4.3
     version: 0.4.3(eslint@8.45.0)
   figma-tree:
-    specifier: ^0.0.1
-    version: 0.0.1(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1)
+    specifier: ^0.0.2
+    version: 0.0.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1)
   postcss:
     specifier: ^8.4.27
     version: 8.4.27
@@ -1204,7 +1204,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /color-convert@1.9.3:
@@ -1653,8 +1653,8 @@ packages:
       reusify: 1.0.4
     dev: true
 
-  /figma-tree@0.0.1(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1):
-    resolution: {integrity: sha512-RryBc+39tQS2Xp1z0Fc3bCqh7aLc+sZ0Tgtjr10AGXcAuCmaELfoan2l+3OzS+G2588C0/62d4qZyiA4zSFr1w==}
+  /figma-tree@0.0.2(@types/react-dom@18.2.7)(@types/react@18.2.15)(redux@4.2.1):
+    resolution: {integrity: sha512-MH+5ZO29NFUlnUJVNgbtiT1pvp2NHEmvKIdQdarwGcX0OrIVq4Xns7lJYI0Ao1iFietMyMVxhCKv/JYapFnJhA==}
     dependencies:
       '@icon-park/react': 1.4.2(react-dom@18.2.0)(react@18.2.0)
       '@reduxjs/toolkit': 1.9.5(react-redux@8.1.2)(react@18.2.0)
@@ -1711,8 +1711,8 @@ packages:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
     dev: true
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -2660,7 +2660,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /run-applescript@5.0.0:
@@ -3142,7 +3142,7 @@ packages:
       rollup: 3.28.0
       sass: 1.66.1
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /vitest@0.34.1(sass@1.66.1):

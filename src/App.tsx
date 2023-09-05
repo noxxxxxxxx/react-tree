@@ -1,4 +1,4 @@
-import { FigmaTree } from 'figma-tree/dist/index'
+import { Tree } from 'figma-tree'
 import 'figma-tree/dist/style.css'
 import { useEffect, useState } from 'react'
 
@@ -47,7 +47,7 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <FigmaTree
+    <Tree
       {...config}
       data={data}
     />
