@@ -49,7 +49,7 @@ export default App () => {
 ## Demo
 
 <video height="240" controls>
-  <source src="https://raw.githubusercontent.com/noxxxxxxxx/tree/main/demo/figma-tree.mov" type="video/mov">
+  <source src="https://raw.githubusercontent.com/noxxxxxxxx/tree/main/demo/figma-tree.mp4" type="video/mov">
 </video>
 
 ## Node Proptery
