@@ -48,7 +48,9 @@ export default App () => {
 
 ## Demo
 
-![Figma Tree Component Demo](./demo/figma-tree-demo.gif)
+<video height="240" controls>
+  <source src="https://raw.githubusercontent.com/noxxxxxxxx/tree/main/demo/figma-tree.mov" type="video/mov">
+</video>
 
 ## Node Proptery
 
