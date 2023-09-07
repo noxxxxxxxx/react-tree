@@ -1,71 +1,13 @@
 {
-  "name": "figma-tree",
-  "description": "A React tree component that looks similar to Figma tree, a tree ui component that has all the tree functionalities",
-  "keywords": [
-    "figma-tree",
-    "tree-component",
-    "react",
-    "tree"
-  ],
-  "files": [
-    "/dist",
-    "/demo"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/tree.js",
-      "require": "./dist/tree.umd.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "./dist/tree.js",
-  "version": "0.0.6",
-  "type": "module",
-  "homepage": "https://github.com/noxxxxxxxx/tree",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/noxxxxxxxx/tree.git"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build --mode production",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "@icon-park/react": "^1.4.2",
-    "@reduxjs/toolkit": "^1.9.5",
-    "lu2": "^2023.8.5",
-    "react-redux": "^8.1.2"
-  },
-  "peerDependencies": {
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.5.7",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.3",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "figma-tree": "^0.0.5",
-    "postcss": "^8.4.27",
-    "prettier": "^3.0.2",
-    "prettier-plugin-packagejson": "^2.4.5",
-    "sass": "^1.66.1",
-    "stylelint": "^15.10.3",
-    "stylelint-config-standard": "^34.0.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-dts": "^3.5.3",
-    "vitest": "^0.34.1"
-  }
+	"scripts": {
+		"dev": "vuepress dev docs",
+		"build": "vuepress build docs"
+	},
+	"devDependencies": {
+		"@vuepress/client": "2.0.0-beta.67",
+		"@vuepress/plugin-docsearch": "2.0.0-beta.67",
+		"@vuepress/plugin-google-analytics": "2.0.0-beta.67",
+		"vue": "^3.3.4",
+		"vuepress": "2.0.0-beta.67"
+	}
 }
