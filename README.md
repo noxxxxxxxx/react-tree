@@ -4,6 +4,10 @@
 
 A React tree component that looks similar to Figma tree, a tree ui component that has all the tree functionalities
 
+## Document
+
+[https://noxxxxxxxx.github.io/tree/](https://noxxxxxxxx.github.io/tree/)
+
 ## How to use
 
 In an ideal scenario, we only store the necessary data in the database. When retrieving data to construct a tree, we may need to extend some attributes in the tree nodes to align with our custom logic. So we need an API `fieldNames` to tell the component which nodes can be inserted into other nodes.
