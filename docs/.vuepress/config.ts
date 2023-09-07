@@ -3,9 +3,13 @@ import { googleAnalyticsPlugin } from "@vuepress/plugin-google-analytics";
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 
 export default {
+  base: "/tree/",
   head: [
-    ["link", { rel: "icon", type: "image/png", sizes: "16x16", href: "/logo.png" }],
-    ['link', { rel: "shortcut icon", href: "/favicon.ico" }],
+    [
+      "link",
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/logo.png" },
+    ],
+    ["link", { rel: "shortcut icon", href: "/favicon.ico" }],
   ],
   locales: {
     "/": {
