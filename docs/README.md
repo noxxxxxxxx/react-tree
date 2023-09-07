@@ -3,9 +3,10 @@
 ## Quick Start
 
 :::tip Prerequisites
+
 - Familiarity with the React and Redux
-- Install Node.js version 16.0 or higher 
-:::
+- Install Node.js version 16.0 or higher
+  :::
 
 ### Install
 
@@ -32,7 +33,7 @@ $ pnpm i figma-tree
 ### Import
 
 ```tsx
-mport { Tree } from 'figma-tree'
+import Tree from 'figma-tree'
 import 'figma-tree/dist/style.css'
 
 export default App () => {
