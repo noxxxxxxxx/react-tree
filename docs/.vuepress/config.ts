@@ -61,7 +61,7 @@ export default {
   }),
   plugins: [
     googleAnalyticsPlugin({
-      id: "G-405778348",
+      id: "G-S5JZQVVKXT",
     }),
     // docsearchPlugin({
     //   // 配置项
