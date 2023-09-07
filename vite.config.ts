@@ -21,9 +21,9 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, './src/lib/index.ts'),
-      name: 'tree',
-      formats: ['es', 'umd'],
+      entry: path.resolve(__dirname, './src/index.tsx'),
+      name: 'Tree',
+      formats: ['es'],
       fileName: 'tree',
     },
     copyPublicDir: false,

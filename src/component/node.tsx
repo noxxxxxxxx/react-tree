@@ -1,8 +1,8 @@
 import { type FC, type ReactElement } from 'react'
-import { findLabel, getFields, mergeAnchor, prevent } from '@/lib/helper'
-import { useAction } from '@/lib/hooks/useAction'
+import { findLabel, getFields, mergeAnchor, prevent } from '@/helper'
+import { useAction } from '@/hooks/useAction'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/lib/store'
+import { RootState } from '@/store'
 import Action from './action'
 import Indent from './indent'
 

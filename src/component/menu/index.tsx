@@ -1,8 +1,8 @@
 import { Clipboard, Copy, CuttingOne, DeleteTwo } from '@icon-park/react'
 import { createPortal } from 'react-dom'
 import { FC, ReactElement } from 'react'
-import { stop } from '@/lib/helper'
-import './inedex.scss'
+import { stop } from '@/helper'
+import './style.scss'
 
 const Menu: FC<Props & ConfigProps> = (props): ReactElement => {
   const { copy, paste, cut, remove, contextMenu } = props

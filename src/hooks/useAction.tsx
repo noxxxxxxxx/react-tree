@@ -10,11 +10,11 @@ import {
   setStart,
   setStatus,
   updateNode,
-} from '@/lib/store/treeSlice'
-import { Status } from '@/lib/types'
-import { RootState } from '@/lib/store'
+} from '@/store/treeSlice'
+import { Status } from '@/types'
+import { RootState } from '@/store'
 import { MouseEventHandler } from 'react'
-import { allowPaste, findNode, getConfig, getNodeInfo } from '@/lib/helper'
+import { allowPaste, findNode, getConfig, getNodeInfo } from '@/helper'
 
 export const useAction = (props: ConfigProps) => {
   const dispatch = useDispatch()

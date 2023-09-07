@@ -1,6 +1,6 @@
 import { RefObject, FC } from 'react'
-declare const Entry: FC<Props & ConfigProps>
-export default Entry
+// declare const Entry: FC<Props & ConfigProps>
+// export default Entry
 
 // export {}
 

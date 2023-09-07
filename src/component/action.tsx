@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { stop } from '@/lib/helper'
+import { stop } from '@/helper'
 import { Lock, PreviewClose, PreviewOpen, Unlock } from '@icon-park/react'
 
 const Action: FC<Props & ConfigProps> = (props) => {

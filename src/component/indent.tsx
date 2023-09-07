@@ -1,4 +1,4 @@
-import { getFields } from '@/lib/helper'
+import { getFields } from '@/helper'
 import { DownOne } from '@icon-park/react'
 import { FC } from 'react'
 

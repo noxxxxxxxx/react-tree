@@ -13,13 +13,15 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./src/index.d.ts",
       "import": "./dist/tree.js",
       "require": "./dist/tree.umd.cjs"
     },
+    "./dist/style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "main": "./dist/tree.js",
+  "module": "./dist/tree.umd.cjs",
   "version": "0.0.6",
   "type": "module",
   "homepage": "https://github.com/noxxxxxxxx/tree",
