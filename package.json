@@ -8,8 +8,7 @@
     "tree"
   ],
   "files": [
-    "/dist",
-    "/demo"
+    "/dist"
   ],
   "exports": {
     ".": {
