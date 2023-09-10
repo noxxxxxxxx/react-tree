@@ -1,14 +1,20 @@
-import { RefObject, FC } from 'react'
-// declare const Entry: FC<Props & ConfigProps>
-// export default Entry
-
-// export {}
+import { RefObject } from 'react'
 
 declare module '*.scss'
 
 export enum Status {
   dragging = 'dragging',
   stop = 'stop',
+}
+
+export enum Theme {
+  default = 'default',
+  figma = 'figma',
+}
+
+export enum FoldIconDisplay {
+  always = 'always',
+  hover = 'hover',
 }
 
 interface fieldNames {
@@ -21,10 +27,13 @@ interface fieldNames {
 declare global {
   interface Window {
     $tree: {
+      theme: Theme
       fieldNames: fieldNames
       reverse: boolean
       contextMenu: boolean
       dragNode: null | HTMLElement
+      foldIconDisplay: FoldIconDisplay
+      selectable: boolean
       throttleTimer: number | NodeJS.Timeout
       throttleDelay: number
       drag: {
@@ -92,9 +101,25 @@ declare global {
   }
 
   interface ConfigProps {
+    theme?: Theme
+    draggable?: boolean
+    icon?: ReactNode | string
+    switcherIcon?: ReactNode
     fieldNames?: fieldNames
     indentSize?: number
-    foldIconDisplay?: string
+    foldIconDisplay?: FoldIconDisplay
+    selectable?: boolean
+    onDragStart?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
+    onDragEnd?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
+    onDragOver?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
+    onDragLeave?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
+    onDragEnter?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
+    onDrop?: (params: {
+      event: React.SyntheticEvent
+      node: TreeNode
+      dragNodes: TreeNode[]
+      dragNodesKeys: TreeNode['anchor'][]
+    }) => void
     defaultSelectMulti?: boolean
     expandAll?: boolean
     expandParent?: boolean

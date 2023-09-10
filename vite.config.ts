@@ -3,9 +3,9 @@ import path from 'path'
 import react from '@vitejs/plugin-react'
 // import dts from 'vite-plugin-dts'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   esbuild: {
-    drop: ['console', 'debugger'],
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
   },
   plugins: [
     react(),
@@ -23,7 +23,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, './src/index.tsx'),
       name: 'Tree',
-      formats: ['es'],
+      formats: ['es', 'umd'],
       fileName: 'tree',
     },
     copyPublicDir: false,
@@ -38,4 +38,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

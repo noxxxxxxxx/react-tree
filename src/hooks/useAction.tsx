@@ -11,12 +11,12 @@ import {
   setStatus,
   updateNode,
 } from '@/store/treeSlice'
-import { Status } from '@/types'
+import { Status } from '@/index.d'
 import { RootState } from '@/store'
 import { MouseEventHandler } from 'react'
 import { allowPaste, findNode, getConfig, getNodeInfo } from '@/helper'
 
-export const useAction = (props: ConfigProps) => {
+export const useAction = () => {
   const dispatch = useDispatch()
   const startData = useSelector((state: RootState) => state.tree.start)
 
@@ -31,6 +31,8 @@ export const useAction = (props: ConfigProps) => {
   }
 
   const select = (ids: string[], anchors: number[][], indexes: number[]) => {
+    const { selectable } = getConfig()
+    if (selectable === false) return
     dispatch(clearSelected())
     dispatch(setStart([ids, anchors, indexes]))
   }
@@ -85,13 +87,15 @@ export const useAction = (props: ConfigProps) => {
   }
 
   const mouseEnter: MouseEventHandler<HTMLElement> = (e) => {
-    if (props.foldIconDisplay === 'hover') {
+    const { foldIconDisplay } = getConfig()
+    if (foldIconDisplay === 'hover') {
       e.currentTarget.classList.add('tree-mouse-in')
     }
   }
 
   const mouseLeave: MouseEventHandler<HTMLElement> = (e) => {
-    if (props.foldIconDisplay === 'hover') {
+    const { foldIconDisplay } = getConfig()
+    if (foldIconDisplay === 'hover') {
       e.currentTarget.classList.remove('tree-mouse-in')
     }
   }

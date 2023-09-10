@@ -1,13 +1,9 @@
 import ID from './id'
+import type { Theme } from '../index.d'
 import { MouseEventHandler } from 'react'
+import { defaultConfig, themeConfig } from './const'
 export const LabelClass = '.node-name'
 export const StorageKey = 'tree:copy:node'
-const fieldNames = {
-  name: 'name',
-  key: 'id',
-  children: 'children',
-  slot: 'slot',
-}
 
 /* 获取元素下标 */
 export const getIndex = (element: HTMLElement) => {
@@ -363,11 +359,12 @@ export const uuid = () => {
  * Tree component default config data
  * @param props ConfigProps
  */
-export const initDefaultConfig = (props: ConfigProps) => {
+export const initConfig = (props: ConfigProps) => {
+  const theme = props.theme || 'default'
   window.$tree = {
-    fieldNames: props.fieldNames || fieldNames,
-    reverse: props.reverse || false,
-    contextMenu: props.contextMenu || false,
+    ...defaultConfig,
+    ...themeConfig[theme],
+    ...props,
     dragNode: null,
     throttleTimer: 0,
     throttleDelay: 200,
@@ -394,7 +391,7 @@ export const initDefaultConfig = (props: ConfigProps) => {
  * @returns object
  */
 export const getConfig = () => {
-  return window.$tree || { fieldNames }
+  return window.$tree
 }
 
 /**

@@ -163,8 +163,8 @@ export const treeSlice = createSlice({
           const parentAnchor = anchor.slice()
           parentAnchor.pop()
           const node = find([parentAnchor], state.treeData)[0]
-          console.log(state.start.indexes[index], '删除下表', anchor)
-            ; (node[children] as TreeNode[])?.splice(state.start.indexes[index], 1)
+          console.log(state.start.indexes[index], '删除下标', anchor)
+          ;(node[children] as TreeNode[])?.splice(state.start.indexes[index], 1)
         }
       })
       // state.setCurrent(0, '', -1, [])
@@ -261,10 +261,10 @@ export const treeSlice = createSlice({
           const startNode = find([state.start.anchors[0]], state.treeData)[0]
           const insert = startNode[slot] === true
           if (insert) {
-            ; (startNode[children] as TreeNode[]).unshift(...target)
+            ;(startNode[children] as TreeNode[]).unshift(...target)
           } else {
             const parentNode = find([parent], state.treeData)[0]
-              ; (parentNode[children] as TreeNode[]).splice(state.start.indexes[0], 0, ...target)
+            ;(parentNode[children] as TreeNode[]).splice(state.start.indexes[0], 0, ...target)
           }
         }
         clearCopyData()

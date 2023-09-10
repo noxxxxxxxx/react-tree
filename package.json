@@ -12,7 +12,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/tree.js",
       "require": "./dist/tree.umd.cjs"
     },
@@ -52,6 +52,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
+    "classnames": "^2.3.2",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

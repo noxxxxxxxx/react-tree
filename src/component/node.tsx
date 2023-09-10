@@ -1,15 +1,30 @@
 import { type FC, type ReactElement } from 'react'
-import { findLabel, getFields, mergeAnchor, prevent } from '@/helper'
+import { anchor, find, findLabel, getFields, mergeAnchor, prevent } from '@/helper'
 import { useAction } from '@/hooks/useAction'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import Action from './action'
 import Indent from './indent'
+import Icon from './icon'
 
 const Node: FC<Props & ConfigProps> = (props): ReactElement => {
-  const { data, lineRef, containerRef, defaultSelectMulti } = props
+  const {
+    data,
+    lineRef,
+    containerRef,
+    defaultSelectMulti,
+    draggable,
+    icon,
+    switcherIcon,
+    onDragEnter,
+    onDragLeave,
+    onDragOver,
+    onDrop,
+    onDragEnd,
+    onDragStart,
+  } = props
   const treeData = data
-  const action = useAction(props)
+  const action = useAction()
   const startData = useSelector((state: RootState) => state.tree.start)
   const base = (containerRef?.current as HTMLElement)?.getBoundingClientRect().top
   const { key } = getFields()
@@ -24,20 +39,24 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     action.hidden(node.anchor, !node.hidden)
   }
 
-  const dragStart = (e: DragEvent, id: string, anchor: number[], index: number) => {
-    e.stopPropagation()
+  const dragStart = (event: React.SyntheticEvent, id: string, anchor: number[], index: number) => {
+    event.stopPropagation()
     action.select([id], [anchor], [index])
     window.$tree.drag.start.id = id
-    window.$tree.dragNode = e.currentTarget as HTMLElement
+    window.$tree.dragNode = event.currentTarget as HTMLElement
+    const node = find([anchor], treeData!)[0]
+    onDragStart?.({ event, node })
   }
 
-  const dragEnter = (e: DragEvent) => {
-    e.stopPropagation()
-    e.preventDefault()
+  const dragEnter = (event: React.SyntheticEvent, anchor: number[]) => {
+    event.stopPropagation()
+    event.preventDefault()
+    const node = find([anchor], treeData!)[0]
+    onDragEnter?.({ event, node })
   }
 
   const dragOver = (
-    e: DragEvent,
+    event: React.SyntheticEvent,
     root: boolean,
     group: boolean,
     id: string,
@@ -45,9 +64,11 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     index: number,
     selfCount: number,
   ) => {
-    e.stopPropagation()
-    e.preventDefault()
-    const target = e.currentTarget as HTMLElement
+    event.stopPropagation()
+    event.preventDefault()
+    const node = find([anchor], treeData!)[0]
+    onDragOver?.({ event, node })
+    const target = event.currentTarget as HTMLElement
     const overParent = anchor.slice()
     overParent.pop()
     target.style.boxShadow = 'none'
@@ -67,7 +88,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
       return
     }
 
-    const y = e.pageY
+    const y = event.pageY
     const baseY = target.getBoundingClientRect().top
     const middle = baseY + 30 / 2
     if (group && id !== window.$tree.drag.start.id) {
@@ -101,20 +122,31 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
   }
 
   /* 拖拽离开 */
-  const dragLeave = (e: DragEvent) => {
-    e.stopPropagation()
-    const target = e.currentTarget as HTMLElement
+  const dragLeave = (event: React.SyntheticEvent, anchor: number[]) => {
+    event.stopPropagation()
+    const target = event.currentTarget as HTMLElement
     target.style.boxShadow = 'none'
+    const node = find([anchor], treeData!)[0]
+    onDragLeave?.({ event, node })
+  }
+
+  /* 拖拽结束 */
+  const dragEnd = (event: React.SyntheticEvent, anchor: number[]) => {
+    const node = find([anchor], treeData!)[0]
+    onDragEnd?.({ event, node })
   }
 
   /* 拖拽释放 */
-  const drop = (e: DragEvent, root: boolean) => {
-    e.stopPropagation()
-    const target = e.currentTarget as HTMLElement
+  const drop = (event: React.SyntheticEvent, root: boolean, anchor: number[]) => {
+    event.stopPropagation()
+    const target = event.currentTarget as HTMLElement
     lineRef.current.style.opacity = 0
     target.style.boxShadow = 'none'
     if (root || !window.$tree.drag.over) return
     console.log('drop - 开始移动')
+    const node = find([anchor], treeData!)[0]
+    const dragNodes = find(startData.anchors, treeData!)
+    onDrop?.({ event, node, dragNodes, dragNodesKeys: startData.anchors })
     action.move()
   }
 
@@ -130,10 +162,11 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
       action.select(ids, anchors, indexes)
       return
     }
+    console.log('selected')
     action.select([id], [anchor], [index])
   }
 
-  if (!treeData.length) {
+  if (!treeData?.length) {
     return <></>
   }
 
@@ -163,27 +196,28 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
           <div
             className={`node-label ${item?.selected ? 'selected' : ''} ${item?.edit ? 'edit' : ''}`}
             style={{ color: item.hidden ? '#bebebe' : 'inherit' }}
-            draggable={!item.root && !item.lock}
+            draggable={!item.root && !item.lock && draggable}
             onDragStart={(e) => dragStart(e, item.id, item.anchor, parentCount - index)}
-            onDragEnter={(e) => dragEnter(e)}
+            onDragEnter={(e) => dragEnter(e, item.anchor)}
             onDragOver={(e) =>
               dragOver(e, item.root, item.slot, item.id, item.anchor, parentCount - index, item?.children?.length || 0)
             }
-            onDragLeave={(e) => dragLeave(e)}
-            onDrop={(e) => drop(e, item.root)}
+            onDragLeave={(e) => dragLeave(e, item.anchor)}
+            onDragEnd={(e) => dragEnd(e, item.anchor)}
+            onDrop={(e) => drop(e, item.root, item.anchor)}
             onMouseDown={(e) => mouseDown(e, item.id, item.anchor, index)}
           >
             <Indent
-              indent={indent}
               node={item}
               virtual={true}
+              indent={indent}
+              switcherIcon={switcherIcon}
             />
             <div className="node-name">
-              {!!item.icon && (
-                <i className="icon">
-                  <img src={item.icon} />
-                </i>
-              )}
+              <Icon
+                Icom={icon || item.icon}
+                node={item}
+              ></Icon>
               <span>
                 {item.name} - {item.anchor}
               </span>
@@ -191,9 +225,10 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
           </div>
           <div className="fold-wrap">
             <Indent
-              indent={indent}
               node={item}
               virtual={false}
+              indent={indent}
+              switcherIcon={switcherIcon}
             />
           </div>
           {!item.root && (

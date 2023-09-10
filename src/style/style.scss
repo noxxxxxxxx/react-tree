@@ -1,5 +1,6 @@
 :root {
-  --hover-color: #0050c0;
+  --theme-figma-hover-color: #0050c0;
+  --theme-default-hover-color: #e7e6e6;
 }
 
 .tree-container {
@@ -22,18 +23,6 @@
       & ~ .node-children {
         background-color: #0050c0;
         display: none;
-      }
-    }
-
-    // 选中状态 颜色
-    .node-info:has(.selected) {
-      background-color: var(--parent-bg-color);
-      color: var(--parent-color);
-      box-shadow: none;
-
-      & ~ .node-children {
-        background-color: var(--children-bg-color);
-        color: var(--children-color);
       }
     }
 
@@ -122,19 +111,6 @@
   .node-info {
     position: relative;
 
-    &:hover {
-      box-shadow: inset 0 0 0 1px var(--hover-color);
-
-      .i-unlock,
-      .i-visible {
-        visibility: visible;
-      }
-
-      &.selected {
-        border-color: transparent;
-      }
-    }
-
     &[data-hidden="true"] {
       & + .node-children {
         .visible-dot:not(.show + .visible-dot) {
@@ -183,6 +159,46 @@
     display: flex;
     align-items: center;
     height: 100%;
+  }
+}
+
+.theme-figma-tree {
+  // 选中状态 颜色
+  .node-info {
+    &:hover {
+      box-shadow: inset 0 0 0 1px var(--theme-figma-hover-color);
+
+      .i-unlock,
+      .i-visible {
+        visibility: visible;
+      }
+    }
+
+    // 选中节点
+    &:has(.selected) {
+      background-color: var(--parent-bg-color);
+      color: var(--parent-color);
+      box-shadow: none;
+
+      & ~ .node-children {
+        background-color: var(--children-bg-color);
+        color: var(--children-color);
+      }
+    }
+  }
+}
+
+.theme-default-tree {
+  .node-info {
+    transition: 0.2s ease all;
+    &:hover {
+      background-color: var(--theme-default-hover-color);
+    }
+  }
+  .node-info:has(.selected) {
+    background-color: var(--parent-bg-color);
+    color: var(--parent-color);
+    box-shadow: none;
   }
 }
 
