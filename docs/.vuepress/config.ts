@@ -39,6 +39,10 @@ export default {
             text: "Gide",
             link: "/",
           },
+          {
+            text: "API",
+            link: "/api",
+          },
         ],
       },
       "/zh/": {
@@ -48,6 +52,10 @@ export default {
           {
             text: "指南",
             link: "/zh/",
+          },
+          {
+            text: "API",
+            link: "/api",
           },
         ],
       },
