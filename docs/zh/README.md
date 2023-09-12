@@ -52,3 +52,14 @@ export default App () => {
   )
 }
 ```
+
+## 演示
+
+最新版本的 Figma-tree 组件
+
+<iframe src="https://codesandbox.io/embed/figma-tree-demo-hhqgws?autoresize=1&fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="figma-tree-demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
