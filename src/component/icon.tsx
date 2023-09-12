@@ -1,4 +1,5 @@
 const Icon = ({ Icom, node }) => {
+  if (!Icom) return <></>
   if (typeof Icom === 'string') {
     return (
       <i className="icon">

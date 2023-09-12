@@ -1,5 +1,5 @@
 import { type FC, type ReactElement } from 'react'
-import { anchor, find, findLabel, getFields, mergeAnchor, prevent } from '@/helper'
+import { find, findLabel, getFields, mergeAnchor, prevent } from '@/helper'
 import { useAction } from '@/hooks/useAction'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
@@ -29,12 +29,12 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
   const base = (containerRef?.current as HTMLElement)?.getBoundingClientRect().top
   const { key } = getFields()
 
-  const lock = (e: DragEvent, node: TreeNode) => {
+  const lock = (e: React.SyntheticEvent, node: TreeNode) => {
     e.stopPropagation()
     action.lock(node.anchor, !node.lock)
   }
 
-  const hidden = (e: MouseEvent, node: TreeNode) => {
+  const hidden = (e: React.SyntheticEvent, node: TreeNode) => {
     e.stopPropagation()
     action.hidden(node.anchor, !node.hidden)
   }
@@ -56,7 +56,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
   }
 
   const dragOver = (
-    event: React.SyntheticEvent,
+    event: React.SyntheticEvent & React.MouseEvent<HTMLDivElement>,
     root: boolean,
     group: boolean,
     id: string,
@@ -83,7 +83,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     const isInchildren = window.$tree.dragNode?.parentNode?.nextSibling?.contains(target)
     if (isInchildren) {
       console.log('在自己的children元素中')
-      lineRef.current.style.opacity = 0
+      if (lineRef?.current) lineRef.current.style.opacity = '0'
       window.$tree.drag.over = false
       return
     }
@@ -94,7 +94,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     if (group && id !== window.$tree.drag.start.id) {
       // 拖拽到组中
       if (y > middle - 7 && y < middle + 7) {
-        lineRef.current.style.opacity = 0
+        if (lineRef?.current) lineRef.current.style.opacity = '0'
         target.style.boxShadow = 'inset 0 0 0px 1px blue'
         action.over(anchor, selfCount)
         console.log('移动到组中', anchor, selfCount)
@@ -102,23 +102,23 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
       }
     }
 
-    lineRef.current.style.opacity = 1
+    if (lineRef?.current) lineRef.current.style.opacity = '1'
     if (y > middle) {
       // 组被展开时，忽略当前元素
       const open = target?.nextSibling?.querySelector('label')?.control.checked === false
       if (group && open && selfCount > 0) {
         console.log('当前组是展开状态')
-        lineRef.current.style.opacity = 0
+        if (lineRef?.current) lineRef.current.style.opacity = '0'
         window.$tree.drag.over = false
         return
       }
-      lineRef.current.style.top = `${baseY - (base || 0) + 30}px`
+      if (lineRef?.current) lineRef.current.style.top = `${baseY - (base || 0) + 30}px`
       action.over(overParent, index)
     } else {
-      lineRef.current.style.top = `${baseY - (base || 0)}px`
+      if (lineRef?.current) lineRef.current.style.top = `${baseY - (base || 0)}px`
       action.over(overParent, index + 1)
     }
-    lineRef.current.style.left = `${findLabel(target)!.offsetLeft - 10}px`
+    if (lineRef?.current) lineRef.current.style.left = `${findLabel(target)!.offsetLeft - 10}px`
   }
 
   /* 拖拽离开 */
@@ -140,7 +140,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
   const drop = (event: React.SyntheticEvent, root: boolean, anchor: number[]) => {
     event.stopPropagation()
     const target = event.currentTarget as HTMLElement
-    lineRef.current.style.opacity = 0
+    if (lineRef?.current) lineRef.current.style.opacity = '0'
     target.style.boxShadow = 'none'
     if (root || !window.$tree.drag.over) return
     console.log('drop - 开始移动')
@@ -152,8 +152,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
 
   const mouseDown = (e: MouseEvent, id: string, anchor: number[], index: number) => {
     if (startData.ids.includes(id) || e.button === 2) return
-    if (e.shiftKey) {
-    }
+    // if (e.shiftKey) {}
     if (e.metaKey && defaultSelectMulti) {
       console.log('按住 command')
       const ids = [...startData.ids, id]
@@ -217,10 +216,8 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
               <Icon
                 Icom={icon || item.icon}
                 node={item}
-              ></Icon>
-              <span>
-                {item.name} - {item.anchor}
-              </span>
+              />
+              <span>{item.name}</span>
             </div>
           </div>
           <div className="fold-wrap">

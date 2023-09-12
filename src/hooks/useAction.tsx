@@ -27,7 +27,7 @@ export const useAction = () => {
   const hideMenu = () => {
     const { menu, contextMenu } = getConfig()
     if (contextMenu === false) return
-    menu.style.visibility = 'hidden'
+    menu().style.visibility = 'hidden'
   }
 
   const select = (ids: string[], anchors: number[][], indexes: number[]) => {
@@ -101,20 +101,20 @@ export const useAction = () => {
   }
   const setPaste = () => {
     const { menu } = getConfig()
-    menu.setAttribute('data-paste', String(allowPaste()))
+    menu().setAttribute('data-paste', String(allowPaste()))
   }
 
   const showMenu = (x: number, y: number) => {
     const { menu } = getConfig()
-    const menuHeight = menu.clientHeight
+    const menuHeight = menu().clientHeight
     const windowHeight = document.documentElement.clientHeight
     let _y = y
     if (y + menuHeight > windowHeight) {
       _y = _y - menuHeight
     }
-    menu.style.left = `${x}px`
-    menu.style.top = `${_y}px`
-    menu.style.visibility = 'visible'
+    menu().style.left = `${x}px`
+    menu().style.top = `${_y}px`
+    menu().style.visibility = 'visible'
   }
 
   const rightClick = (e: React.MouseEvent) => {

@@ -1,4 +1,4 @@
-import { DownOne } from '@icon-park/react'
+import { ReactComponent as DownOne } from '@/assets/arrowdown.svg'
 import { FoldIconDisplay } from '@/index.d'
 
 const fieldNames = {
@@ -9,17 +9,7 @@ const fieldNames = {
 }
 
 const getIcon = (type: string) => {
-  if (type === 'downone')
-    return (
-      <DownOne
-        theme="filled"
-        size="12"
-        fill="#969696"
-        strokeWidth={4}
-        strokeLinejoin="miter"
-        strokeLinecap="square"
-      />
-    )
+  if (type === 'downone') return <DownOne />
 }
 
 export const defaultConfig = {
@@ -38,5 +28,6 @@ export const themeConfig = {
     theme: 'figma',
     foldIconDisplay: FoldIconDisplay.hover,
     draggable: true,
+    contextMenu: true,
   },
 }

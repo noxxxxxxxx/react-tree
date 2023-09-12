@@ -44,7 +44,7 @@ declare global {
         over?: boolean // identify can drop
       }
       style: Record<string, string>
-      menu: HTMLElement
+      menu: () => HTMLElement
     }
   }
 

@@ -35,14 +35,14 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@icon-park/react": "^1.4.2",
-    "@reduxjs/toolkit": "^1.9.5",
-    "lu2": "^2023.8.5",
-    "react-redux": "^8.1.2"
+    "lu2": "^2023.8.5"
   },
   "peerDependencies": {
+    "@reduxjs/toolkit": ">=1.9.5",
     "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
+    "react-dom": ">=18.2.0",
+    "react-redux": ">=8.1.2",
+    "classnames": "^2.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
@@ -52,13 +52,11 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
-    "classnames": "^2.3.2",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "figma-tree": "^0.0.5",
     "postcss": "^8.4.27",
     "prettier": "^3.0.2",
     "prettier-plugin-packagejson": "^2.4.5",
@@ -67,7 +65,9 @@
     "stylelint-config-standard": "^34.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-dts": "^3.5.3",
+    "vite-plugin-copy-files": "^1.1.1",
+    "vite-plugin-svgr": "^3.2.0",
     "vitest": "^0.34.1"
-  }
+  },
+  "license": "MIT"
 }

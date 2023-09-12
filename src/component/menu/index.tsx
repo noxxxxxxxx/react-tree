@@ -1,4 +1,7 @@
-import { Clipboard, Copy, CuttingOne, DeleteTwo } from '@icon-park/react'
+import { ReactComponent as DeleteTwo } from '@/assets/remove.svg'
+import { ReactComponent as Clipboard } from '@/assets/paste.svg'
+import { ReactComponent as CuttingOne } from '@/assets/cut.svg'
+import { ReactComponent as Copy } from '@/assets/copy.svg'
 import { createPortal } from 'react-dom'
 import { FC, ReactElement } from 'react'
 import { stop } from '@/helper'
@@ -20,56 +23,28 @@ const Menu: FC<Props & ConfigProps> = (props): ReactElement => {
     >
       <li onClick={() => copy?.()}>
         <span className="menu-item">
-          <Copy
-            theme="outline"
-            size="14"
-            fill="var(--icon)"
-            strokeWidth={3}
-            strokeLinejoin="miter"
-            strokeLinecap="square"
-          />
+          <Copy className="i-icon" />
           复制
         </span>
         <span>⌘C</span>
       </li>
       <li onClick={() => paste?.()}>
         <span className="menu-item">
-          <Clipboard
-            theme="outline"
-            size="14"
-            fill="var(--icon)"
-            strokeWidth={3}
-            strokeLinejoin="miter"
-            strokeLinecap="square"
-          />
+          <Clipboard className="i-icon" />
           粘贴
         </span>
         <span>⌘V</span>
       </li>
       <li onClick={() => cut?.()}>
         <span className="menu-item">
-          <CuttingOne
-            theme="outline"
-            size="14"
-            fill="var(--icon)"
-            strokeWidth={3}
-            strokeLinejoin="miter"
-            strokeLinecap="square"
-          />
+          <CuttingOne className="i-icon" />
           剪切
         </span>
         <span>⌘X</span>
       </li>
       <li onClick={() => remove?.()}>
         <span className="menu-item">
-          <DeleteTwo
-            theme="outline"
-            size="14"
-            fill="var(--icon)"
-            strokeWidth={3}
-            strokeLinejoin="miter"
-            strokeLinecap="square"
-          />
+          <DeleteTwo className="i-icon" />
           删除
         </span>
         <span>Del</span>

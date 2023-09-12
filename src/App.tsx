@@ -1,13 +1,15 @@
-import Tree from './index'
-import '@/style/style.scss'
+// import Tree from './index'
+// import '@/style/style.scss'
 import { useEffect, useState } from 'react'
+import Tree from '../dist/tree.es'
+import '../dist/style.css'
 
 const api = 'https://mock.apifox.cn/m1/3170270-0-default/data'
 const App: React.FC = () => {
   const [data, setData] = useState<TreeNode[]>([])
 
   const config = {
-    theme: 'figma',
+    theme: 'default',
     // draggable: true,
     // icon: <div>这里是icon</div>,
     // indentSize: 30,
@@ -62,6 +64,7 @@ const App: React.FC = () => {
       //   slot: true,
       // })
       setData(data)
+      console.log(data)
     }
     fetchData()
     return () => {
@@ -74,6 +77,7 @@ const App: React.FC = () => {
       {...config}
       data={data}
     />
+    // <div>wewe</div>
   )
 }
 

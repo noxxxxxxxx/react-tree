@@ -1,6 +1,9 @@
-import { FC } from 'react'
+import { ReactComponent as PreviewClose } from '@/assets/invisible.svg'
+import { ReactComponent as PreviewOpen } from '@/assets/visible.svg'
+import { ReactComponent as Unlock } from '@/assets/unlock.svg'
+import { ReactComponent as Lock } from '@/assets/lock.svg'
 import { stop } from '@/helper'
-import { Lock, PreviewClose, PreviewOpen, Unlock } from '@icon-park/react'
+import { FC } from 'react'
 
 const Action: FC<Props & ConfigProps> = (props) => {
   const { node, lock, hidden } = props
@@ -14,23 +17,7 @@ const Action: FC<Props & ConfigProps> = (props) => {
         onMouseUp={stop}
         className="lock-wrap"
       >
-        {node.lock ? (
-          <Lock
-            className={`i-lock ${node.lock && 'show'}`}
-            theme="outline"
-            size="12"
-            fill="#969696"
-            strokeWidth={4}
-          />
-        ) : (
-          <Unlock
-            className="i-unlock"
-            theme="outline"
-            size="12"
-            fill="#969696"
-            strokeWidth={4}
-          />
-        )}
+        {node.lock ? <Lock className={`i-lock ${node.lock && 'show'}`} /> : <Unlock className="i-unlock" />}
         <span className="lock-dot">·</span>
       </div>
       <div
@@ -39,23 +26,9 @@ const Action: FC<Props & ConfigProps> = (props) => {
         className="hidden-wrap"
       >
         {node.hidden ? (
-          <PreviewClose
-            className={`i-invisible ${node.hidden ? 'show' : ''}`}
-            theme="filled"
-            size="12"
-            fill="#969696"
-            strokeWidth={4}
-            strokeLinejoin="miter"
-            strokeLinecap="square"
-          />
+          <PreviewClose className={`i-invisible ${node.hidden ? 'show' : ''}`} />
         ) : (
-          <PreviewOpen
-            className="i-visible"
-            theme="outline"
-            size="12"
-            fill="#969696"
-            strokeWidth={4}
-          />
+          <PreviewOpen className="i-visible" />
         )}
         <span className="visible-dot">·</span>
       </div>

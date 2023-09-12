@@ -24,7 +24,7 @@ const Tree: FC<Props & ConfigProps> = (props): ReactElement => {
     if (!data || data.length === 0) return
     initConfig(props)
     setConfig(getConfig())
-    dispatch(initTreeData(anchor(data, []))) // save tree data with anchor
+    dispatch(initTreeData(anchor(data, []))) // init tree data with anchor
     document.documentElement.addEventListener('mousedown', handleTreeMouseDown)
     return () => {
       document.documentElement.removeEventListener('mousedown', handleTreeMouseDown)

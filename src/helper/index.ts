@@ -54,7 +54,7 @@ export const findNode = (e: React.MouseEvent): HTMLElement => {
     if (anchor) {
       return target
     }
-    target = target.parentNode
+    target = target.parentNode as HTMLElement
   }
 }
 
@@ -210,95 +210,6 @@ export const anchor = (list: TreeNode[], start: number[]) => {
   return list
 }
 
-/*
- * array to tree
- * id: 唯一标识
- * pid: 对应父级id
- * children: 子元素对应的字段
- */
-// export const construct = (list: TreeNode[], id: string, pid: string, children: string, slot: string) => {
-//   const nodeMap: Map<string, TreeNode> = new Map()
-//   const result: TreeNode[] = []
-//   list.forEach((item) => {
-//     const _id = item[id] as string
-//     const _pid = item[pid] as string
-//     const node = item
-//     if (node[slot]) {
-//       if (!node[children]) node[children] = []
-//     }
-//     const preSetNode = nodeMap.get(_id)
-//     if (preSetNode) {
-//       nodeMap.set(_id, {
-//         ...preSetNode,
-//         ...node,
-//       })
-//     } else {
-//       nodeMap.set(_id, node)
-//     }
-
-//     const pNode = nodeMap.get(_pid)
-//     if (pNode) {
-//       if (pNode[children] == null) {
-//         pNode[children] = []
-//       }
-//       if (node.order === undefined) {
-//         node.order = (pNode[children] as TreeNode[]).length
-//       }
-//       ; (pNode[children] as TreeNode[]).push(node)
-//         ; (pNode[children] as TreeNode[]).sort((a, b) => a.order - b.order)
-//     } else {
-//       // parent node not been setted
-//       nodeMap.set(pid, {
-//         [children]: [node],
-//       } as TreeNode)
-//     }
-
-//     if (!node[pid]) {
-//       result.push(node)
-//     }
-//   })
-//   return anchor(result, [])
-// }
-
-/**
- * tree to array
- * @param tree
- * @param id
- * @param pid
- * @param children
- * @returns
- */
-// export const destruct = (tree: TreeNode[], id: string, pid: string, children: string) => {
-//   const flatten = (node: TreeNode) => {
-//     const result = []
-//     const queue = [node]
-
-//     while (queue.length) {
-//       const item = queue.shift()
-//       if (item && item[children] && (item[children] as TreeNode[]).length > 0) {
-//         (item[children] as TreeNode[]).forEach((c) => {
-//           queue.push({
-//             ...c,
-//             [pid]: item[id],
-//           })
-//         })
-//       }
-
-//       if (item) delete item[children]
-
-//       result.push(item)
-//     }
-
-//     return result
-//   }
-//   // 如果是数组而非单个根节点
-//   if (Array.isArray(tree)) {
-//     return tree.map((item) => flatten(item)).reduce((pre, cur) => pre.concat(cur), [])
-//   } else {
-//     return flatten(tree)
-//   }
-// }
-
 /**
  * if two anchors have same ancestor then return their same ancestor anchor
  * @param pre
@@ -342,11 +253,6 @@ export const mergeAnchor = (pre: number[][], cur: number[]): number[][] => {
   return result
 }
 
-// export const clearThrottle = () => {
-//   clearTimeout(window.$tree.throttleTimer)
-//   window.$tree.throttleTimer = 0
-// }
-
 /**
  * Generate tree node id
  * @returns guid
@@ -355,12 +261,22 @@ export const uuid = () => {
   return ID.guid()
 }
 
+const getMenuElement = () => {
+  let menu: HTMLElement
+  return function () {
+    if (menu) return menu
+    menu = document.querySelector('.tree-context-menu') as HTMLElement
+    return menu
+  }
+}
+
 /**
  * Tree component default config data
  * @param props ConfigProps
  */
 export const initConfig = (props: ConfigProps) => {
-  const theme = props.theme || 'default'
+  const theme = props.theme ?? 'default'
+  console.log(document.querySelector('.tree-context-menu'))
   window.$tree = {
     ...defaultConfig,
     ...themeConfig[theme],
@@ -376,13 +292,13 @@ export const initConfig = (props: ConfigProps) => {
       over: false, // identify can drop
     },
     style: {
-      '--node-indent': (props.indentSize || 15) + 'px',
-      '--parent-bg-color': props.parentBgColor || '#e9e9e9',
-      '--parent-color': props.parentColor || '#000',
-      '--children-bg-color': props.childrenBgColor || '#f6f4f4',
-      '--children-color': props.childrenColor || '#000',
+      '--node-indent': (props.indentSize ?? 15) + 'px',
+      '--parent-bg-color': props.parentBgColor ?? '#e9e9e9',
+      '--parent-color': props.parentColor ?? '#000',
+      '--children-bg-color': props.childrenBgColor ?? '#f6f4f4',
+      '--children-color': props.childrenColor ?? '#000',
     },
-    menu: document.querySelector('.tree-context-menu')!,
+    menu: getMenuElement()!,
   }
 }
 
@@ -403,6 +319,6 @@ export const getFields = () => {
   return fieldNames
 }
 
-export const prevent: MouseEventHandler<HTMLElement> = (e) => e.preventDefault()
+export const prevent: MouseEventHandler<HTMLElement> = (e: React.SyntheticEvent) => e.preventDefault()
 
-export const stop: MouseEventHandler<HTMLElement> = (e) => e.stopPropagation()
+export const stop: MouseEventHandler<HTMLElement> = (e: React.SyntheticEvent) => e.stopPropagation()

@@ -64,8 +64,6 @@ export const treeSlice = createSlice({
     },
     refresh: (state) => {
       const { key } = getFields()
-      // const over = state.over
-
       function recursion(children: TreeNode[], anchor: number[]) {
         children?.forEach((child, index) => {
           const position = [...anchor]
@@ -83,13 +81,6 @@ export const treeSlice = createSlice({
         })
       }
 
-      // over.anchor.pop() // 查找上二级
-      // console.log(JSON.stringify(over.anchor))
-      // const parent = over.anchor.length ? find([over.anchor], state.treeData)[0] : null
-      // if (parent) {
-      //   recursion(parent.children!, parent.anchor!)
-      // } else {
-      // to improve
       state.treeData.forEach((child: TreeNode, index) => {
         child.anchor = [index]
         const idx = state.start.ids.indexOf(child[key] as string)
@@ -104,12 +95,10 @@ export const treeSlice = createSlice({
           recursion(child.children, child.anchor)
         }
       })
-      // }
     },
     moveNode: (state) => {
       const start = state.start
       const over = state.over
-      // console.log(JSON.stringify(start), '----', JSON.stringify(over))
       const targetIsRoot = over.anchor.length === 0
       start.anchors.forEach((anchor, index) => {
         const startIsRoot = anchor.length === 1
@@ -117,7 +106,6 @@ export const treeSlice = createSlice({
         const target = find([over.anchor], state.treeData)[0]
         let startIndex = state.start.indexes[index]
         if (!target && !targetIsRoot) {
-          // console.log(target, targetIsRoot, '-----')
           console.warn("move node or insert target node dosn't exist, please check anchor array is correct?")
           return
         }
@@ -167,76 +155,7 @@ export const treeSlice = createSlice({
           ;(node[children] as TreeNode[])?.splice(state.start.indexes[index], 1)
         }
       })
-      // state.setCurrent(0, '', -1, [])
     },
-    insertNode: (state) => {
-      // const over = state.over
-      // const target = find([over.anchor], state.data)[0]
-      // const root = over.anchor.length === 0
-      // const id = state.start.from
-      // const newNode = cleanData(useStore.getState().getMaterial(id!))
-      // newNode.id = nanoid()
-      // newNode.anchors = []
-      // newNode.lock = false
-      // newNode.edit = false
-      // newNode.hidden = false
-      // if (root) {
-      //   state.data.splice(over.index, 0, newNode)
-      // } else {
-      //   target.children?.splice(over.index, 0, newNode)
-      // }
-      // state.id = newNode.id // 更新当前选中 id
-      // state.uid = newNode.uid // 更新当前选中 indexes
-      // state.indexes = [...over.indexes, over.index] // 更新当前选中 indexes
-    },
-    // fix selected node anchors
-    fixSelected: (state, { payload }) => {
-      // const { key, slot, children } = getFields()
-      // const paste = payload
-      // let anchor = state.over.anchor
-      // let target = find([anchor], state.treeData)[0]
-      // if (paste) {
-      //   anchor = state.start.anchors[0]
-      //   target = find([anchor], state.treeData)[0]
-      //   const insert = target[slot] === true
-      //   if (insert) return
-      //   anchor.pop()
-      //   target = find([anchor], state.treeData)[0] // find parent
-      // }
-      // state.start.anchors =
-      //   (target[children] as TreeNode[])
-      //     ?.filter((child) => state.start.ids.includes(child[key] as string))
-      //     .map((child) => child.anchor) || []
-    },
-    // updateNodeProps: (data, type) =>
-    //   set((state) => {
-    //     const { indexes } = get()
-    //     const node = findNode(indexes, state)
-    //     if (node) {
-    //       if (type == 'style') {
-    //         node!.style = merge(node!.style, data)
-    //       } else {
-    //         node!.props = merge(node!.props, data)
-    //       }
-    //     }
-    //   }),
-    // repairIndexes: () => {
-    //   set((state) => {
-    //     const repair = (tree: TreeNode[]) => {
-    //       for (let i = 0; i < tree.length; i++) {
-    //         const node = tree[i]
-    //         if (node.uid === state.uid) {
-    //           state.indexes = node.indexes.slice()
-    //           return
-    //         }
-    //         if (node.group) {
-    //           repair(node.group)
-    //         }
-    //       }
-    //     }
-    //     repair(state.tree)
-    //   })
-    // },
     copyNode: (state) => {
       const node = find(state.start.anchors, state.treeData)
       saveCopyData(JSON.stringify(node))
@@ -274,20 +193,18 @@ export const treeSlice = createSlice({
 })
 
 export const {
-  initTreeData,
   initFlattenData,
-  setStart,
   clearSelected,
-  setOver,
-  setStatus,
+  initTreeData,
   updateNode,
-  refresh,
-  moveNode,
-  insertNode,
-  copyNode,
-  pasteNode,
   removeNode,
-  fixSelected,
+  pasteNode,
+  setStatus,
+  copyNode,
+  moveNode,
+  setStart,
+  setOver,
+  refresh,
 } = treeSlice.actions
 
 export default treeSlice.reducer

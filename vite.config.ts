@@ -1,39 +1,48 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import path from 'path'
+import svgr from 'vite-plugin-svgr'
+import packageJson from './package.json'
 import react from '@vitejs/plugin-react'
-// import dts from 'vite-plugin-dts'
+import copyFiles from 'vite-plugin-copy-files'
+
+const externals = [...Object.keys(packageJson.peerDependencies), 'react/jsx-runtime']
 
 export default defineConfig(({ mode }) => ({
   esbuild: {
     drop: mode === 'production' ? ['console', 'debugger'] : [],
   },
   plugins: [
+    svgr(),
     react(),
-    // dts({
-    //   rollupTypes: false,
-    //   copyDtsFiles: true,
-    // }),
+    copyFiles({
+      include: ['src/index.d.ts'],
+    }),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src'),
     },
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, './src/index.tsx'),
+      entry: resolve(__dirname, './src/index.tsx'),
       name: 'Tree',
       formats: ['es', 'umd'],
-      fileName: 'tree',
+      fileName: (format) => {
+        return `tree.${format}.js`
+      },
     },
     copyPublicDir: false,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: externals,
       output: {
         globals: {
           'react': 'React',
           'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'react/jsx-runtime',
+          'classnames': 'classNames',
+          'react-redux': 'reactRedux',
+          '@reduxjs/toolkit': 'RTK',
+          'react/jsx-runtime': 'JSX',
         },
       },
     },
