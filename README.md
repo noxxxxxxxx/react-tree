@@ -49,6 +49,18 @@ export default App () => {
 - [x] change selected color
 - [x] node icon
 - [x] custom indent size
+- [x] draggable
+- [x] theme option
+
+## Develop
+
+Feel free to fork or clone this repository.
+
+```bash
+pnpm i
+
+npm run dev
+```
 
 ## LICENSE
 
