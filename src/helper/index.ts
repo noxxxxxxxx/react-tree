@@ -58,6 +58,11 @@ export const findNode = (e: React.MouseEvent): HTMLElement => {
   }
 }
 
+/* set checkbox indeterminate */
+export const indeterminate = (anchor: number[], value: boolean) => {
+  document.querySelector(`[name="${anchor.join()}"]`).indeterminate = value
+}
+
 /**
  * Get tree node data
  * @returns string
@@ -276,7 +281,6 @@ const getMenuElement = () => {
  */
 export const initConfig = (props: ConfigProps) => {
   const theme = props.theme ?? 'default'
-  console.log(document.querySelector('.tree-context-menu'))
   window.$tree = {
     ...defaultConfig,
     ...themeConfig[theme],
@@ -298,6 +302,7 @@ export const initConfig = (props: ConfigProps) => {
       '--children-bg-color': props.childrenBgColor ?? '#f6f4f4',
       '--children-color': props.childrenColor ?? '#000',
     },
+    
     menu: getMenuElement()!,
   }
 }

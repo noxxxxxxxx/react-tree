@@ -71,11 +71,12 @@
   }
 
   .node-indent {
+    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 
     & > span {
       display: block;
@@ -83,8 +84,9 @@
       height: 100%;
       &:has(label) {
         display: flex;
-        justify-content: flex-end;
+        height: 100%;
         padding-right: 3px;
+        justify-content: flex-end;
       }
     }
   }
@@ -145,12 +147,13 @@
   }
 
   .label-fold {
+    display: none;
     position: absolute;
     top: 0;
+    right: 6px;
     height: 100%;
     align-items: center;
     justify-content: center;
-    display: none;
     pointer-events: all;
   }
 

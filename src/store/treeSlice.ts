@@ -1,10 +1,9 @@
-import { cleanData, clearCopyData, find, getCopyData, getFields, saveCopyData, sortAnchors, uuid } from '../helper'
+import { cleanData, clearCopyData, find, getCopyData, getFields, indeterminate, saveCopyData, sortAnchors, uuid } from '../helper'
 import { createSlice } from '@reduxjs/toolkit'
 import { Status } from '@/index.d'
 
 const initialState: StateType = {
   treeData: [],
-  flattenData: {},
   status: Status.stop,
   start: {
     ids: [],
@@ -25,9 +24,6 @@ export const treeSlice = createSlice({
   reducers: {
     initTreeData: (state, action) => {
       state.treeData = cleanData(action.payload)
-    },
-    initFlattenData: (state, action) => {
-      state.flattenData = cleanData(action.payload)
     },
     setStart: (state, { payload }) => {
       const [ids, anchors, indexes] = payload
@@ -52,15 +48,59 @@ export const treeSlice = createSlice({
       const [anchor, index] = payload
       if (anchor !== '') state.over.anchor = anchor
       if (index !== undefined) state.over.index = index
-      console.log('目标位置', JSON.stringify(state.over.anchor), state.over.index)
     },
     setStatus: (state, { payload }) => {
       state.status = payload
     },
     updateNode: (state, { payload }) => {
       const [anchor, key, value] = payload
+      const nodes = find(anchor, state.treeData)
+      nodes.forEach((node) => {
+        node[key] = value
+      })
+    },
+    updateChecked: (state, { payload }) => {
+      const { children } = getFields()
+      const [anchor, checked] = payload
       const node = find([anchor], state.treeData)[0]
-      node[key] = value
+      node.checked = checked
+      const loopChildren = (node: TreeNode) => {
+        const list = node[children] as TreeNode[]
+        if (!list) return
+        indeterminate(node.anchor, false)
+        list.forEach((node) => {
+          node.checked = checked
+          loopChildren(node)
+        })
+      }
+      const loopParent = (anchor: number[]) => {
+        const position = anchor
+        position.pop()
+        while (position.length) {
+          const parent = find([position], state.treeData)[0]
+          const list = parent[children] as TreeNode[]
+          if (checked) {
+            const unchecked = list.find((node) => !node.checked)
+            if (unchecked) {
+              indeterminate(position, true)
+            } else {
+              indeterminate(position, false)
+              parent.checked = true
+            }
+          } else {
+            const checked = list.find((node) => node.checked)
+            if (checked) {
+              indeterminate(position, true)
+            } else {
+              indeterminate(position, false)
+              parent.checked = false
+            }
+          }
+          position.pop()
+        }
+      }
+      loopChildren(node)
+      loopParent(anchor)
     },
     refresh: (state) => {
       const { key } = getFields()
@@ -193,8 +233,8 @@ export const treeSlice = createSlice({
 })
 
 export const {
-  initFlattenData,
   clearSelected,
+  updateChecked,
   initTreeData,
   updateNode,
   removeNode,

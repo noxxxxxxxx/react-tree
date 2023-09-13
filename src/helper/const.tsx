@@ -17,6 +17,7 @@ export const defaultConfig = {
   reverse: false,
   contextMenu: false,
   switcherIcon: () => getIcon('downone'),
+  checkable: false,
   selectable: true,
 }
 
@@ -29,5 +30,9 @@ export const themeConfig = {
     foldIconDisplay: FoldIconDisplay.hover,
     draggable: true,
     contextMenu: true,
+  },
+  file: {
+    theme: 'file',
+    showLine: true,
   },
 }

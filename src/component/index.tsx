@@ -1,8 +1,6 @@
 import { type FC, type ReactElement, useEffect, useRef, useState } from 'react'
 import { anchor, getConfig, initConfig } from '@/helper'
 import { useDispatch, useSelector } from 'react-redux'
-import 'lu2/theme/edge/css/common/ui/LightTip.css'
-import 'lu2/theme/edge/js/common/ui/LightTip.js'
 import { initTreeData } from '@/store/treeSlice'
 import { useAction } from '@/hooks/useAction'
 import ContextMenu from '@/component/menu'

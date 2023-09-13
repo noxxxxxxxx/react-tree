@@ -30,6 +30,7 @@ declare global {
       theme: Theme
       fieldNames: fieldNames
       reverse: boolean
+      checkable: boolean
       contextMenu: boolean
       dragNode: null | HTMLElement
       foldIconDisplay: FoldIconDisplay
@@ -50,7 +51,6 @@ declare global {
 
   interface StateType {
     treeData: TreeNode[]
-    flattenData: Record<string, TreeNode>
     status: Status
     start: {
       ids: string[] // current selected id
@@ -72,25 +72,26 @@ declare global {
     id: string
     // pid: string
     // order: number
-    icon: string
     root: boolean
     name: string
+    icon: string
     lock: boolean
-    hidden: boolean
     fold: boolean
+    hidden: boolean
+    checked: boolean
     selected: boolean
     edit: boolean
     slot?: boolean // means allow insert other tree node
-    children?: TreeNode[]
     anchor: number[]
+    children?: TreeNode[]
   }
 
   interface Props {
     data?: TreeNode[]
     lineRef?: RefObject<HTMLDivElement>
     containerRef?: RefObject<HTMLDivElement>
-    copy?: () => void
     cut?: () => void
+    copy?: () => void
     paste?: () => void
     remove?: () => void
     lock?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, node: TreeNode) => void

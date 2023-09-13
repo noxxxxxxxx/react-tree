@@ -1,8 +1,9 @@
-import { type FC, type ReactElement } from 'react'
 import { find, findLabel, getFields, mergeAnchor, prevent } from '@/helper'
+import { type FC, type ReactElement } from 'react'
 import { useAction } from '@/hooks/useAction'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import CheckBox from './checkbox'
 import Action from './action'
 import Indent from './indent'
 import Icon from './icon'
@@ -14,6 +15,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     containerRef,
     defaultSelectMulti,
     draggable,
+    checkable,
     icon,
     switcherIcon,
     onDragEnter,
@@ -154,22 +156,18 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     if (startData.ids.includes(id) || e.button === 2) return
     // if (e.shiftKey) {}
     if (e.metaKey && defaultSelectMulti) {
-      console.log('按住 command')
       const ids = [...startData.ids, id]
       const anchors = mergeAnchor(startData.anchors, anchor)
       const indexes = anchors.map((anchor) => anchor.slice().pop()!)
       action.select(ids, anchors, indexes)
       return
     }
-    console.log('selected')
     action.select([id], [anchor], [index])
   }
 
   if (!treeData?.length) {
     return <></>
   }
-
-  console.log('render---', base)
 
   const node = (tree: TreeNode[], indent: any[], parentCount: number) =>
     tree.map((item: TreeNode, index) => (
@@ -212,6 +210,12 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
               indent={indent}
               switcherIcon={switcherIcon}
             />
+            {checkable && (
+              <CheckBox
+                name={item.anchor.join()}
+                node={item}
+              />
+            )}
             <div className="node-name">
               <Icon
                 Icom={icon || item.icon}

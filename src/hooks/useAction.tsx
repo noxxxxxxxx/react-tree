@@ -9,6 +9,7 @@ import {
   setOver,
   setStart,
   setStatus,
+  updateChecked,
   updateNode,
 } from '@/store/treeSlice'
 import { Status } from '@/index.d'
@@ -42,11 +43,11 @@ export const useAction = () => {
   }
 
   const lock = (anchor: number[], value: boolean) => {
-    dispatch(updateNode([anchor, 'lock', value]))
+    dispatch(updateNode([[anchor], 'lock', value]))
   }
 
   const hidden = (anchor: number[], value: boolean) => {
-    dispatch(updateNode([anchor, 'hidden', value]))
+    dispatch(updateNode([[anchor], 'hidden', value]))
   }
 
   const copy = () => {
@@ -136,6 +137,11 @@ export const useAction = () => {
     }
   }
 
+  /* set checkbox value */
+  const checked = (anchor: number[], value: boolean) => {
+    dispatch(updateChecked([anchor, value]))
+  }
+
   return {
     select,
     over,
@@ -152,5 +158,6 @@ export const useAction = () => {
     rightClick,
     hideMenu,
     handleTreeMouseDown,
+    checked,
   }
 }

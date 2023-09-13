@@ -1,8 +1,8 @@
-// import Tree from './index'
-// import '@/style/style.scss'
+import Tree from './index'
+import '@/style/style.scss'
 import { useEffect, useState } from 'react'
-import Tree from '../dist/tree.es'
-import '../dist/style.css'
+// import Tree from '../dist/tree.es'
+// import '../dist/style.css'
 
 const api = 'https://mock.apifox.cn/m1/3170270-0-default/data'
 const App: React.FC = () => {
@@ -10,10 +10,11 @@ const App: React.FC = () => {
 
   const config = {
     theme: 'default',
-    // draggable: true,
+    draggable: true,
+    checkable: true,
     // icon: <div>这里是icon</div>,
     // indentSize: 30,
-    // foldIconDisplay: 'always',
+    foldIconDisplay: 'always',
     fieldNames: {
       name: 'name',
       key: 'id',
@@ -26,19 +27,19 @@ const App: React.FC = () => {
     // onDragEnd: ({ event, node }) => {
     //   console.log(event, node)
     // },
-    onDragOver: ({ event, node }) => {
-      console.log(event, node)
-    },
-    onDragLeave: ({ event, node }) => {
-      console.log(event, node)
-    },
-    onDragEnter: ({ event, node }) => {
-      console.log(event, node)
-    },
-    onDrop: ({ event, node, dragNodes, dragNodesKeys }) => {
-      console.log('drops----')
-      console.log(event, node, dragNodes, dragNodesKeys)
-    },
+    // onDragOver: ({ event, node }) => {
+    //   console.log(event, node)
+    // },
+    // onDragLeave: ({ event, node }) => {
+    //   console.log(event, node)
+    // },
+    // onDragEnter: ({ event, node }) => {
+    //   console.log(event, node)
+    // },
+    // onDrop: ({ event, node, dragNodes, dragNodesKeys }) => {
+    //   console.log('drops----')
+    //   console.log(event, node, dragNodes, dragNodesKeys)
+    // },
     // selectable: false
     // defaultSelectMulti: false,
     // expandParent: true,
