@@ -21,7 +21,7 @@
   },
   "main": "./dist/tree.js",
   "module": "./dist/tree.umd.cjs",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "homepage": "https://github.com/noxxxxxxxx/tree",
   "repository": {
