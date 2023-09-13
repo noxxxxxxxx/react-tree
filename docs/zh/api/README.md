@@ -120,6 +120,14 @@ enum FoldIconDisplay {
 
 - **Type** `boolean`
 
+## checkable
+
+控制 checkbox 是否展示
+
+- **Default** `false`
+
+- **Type** `boolean`
+
 ## selectable
 
 控制 Tree 节点是否可被选中

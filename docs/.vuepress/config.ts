@@ -5,11 +5,8 @@ import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 export default {
   base: "/tree/",
   head: [
-    [
-      "link",
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/logo.png" },
-    ],
-    ["link", { rel: "shortcut icon", href: "/favicon.ico" }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/tree.svg" }],
+    ["meta", { name: "theme-color", content: "#00A72F" }],
   ],
   locales: {
     "/": {

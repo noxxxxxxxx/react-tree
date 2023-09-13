@@ -120,6 +120,14 @@ Determining whether a treeNode can be dragged or not.
 
 - **Type** `boolean`
 
+## checkable
+
+Determining whether display checkbox in each tree node.
+
+- **Default** `false`
+
+- **Type** `boolean`
+
 ## selectable
 
 Whether a tree node is selectable or not.
