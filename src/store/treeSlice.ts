@@ -1,4 +1,4 @@
-import { cleanData, clearCopyData, find, getCopyData, getFields, indeterminate, saveCopyData, sortAnchors, uuid } from '../helper'
+import { cleanData, clearCopyData, find, getCopyData, getFields, saveCopyData, sortAnchors, uuid } from '../helper'
 import { createSlice } from '@reduxjs/toolkit'
 import { Status } from '@/index.d'
 
@@ -67,7 +67,7 @@ export const treeSlice = createSlice({
       const loopChildren = (node: TreeNode) => {
         const list = node[children] as TreeNode[]
         if (!list) return
-        indeterminate(node.anchor, false)
+        node.halfChecked = false
         list.forEach((node) => {
           node.checked = checked
           loopChildren(node)
@@ -76,24 +76,32 @@ export const treeSlice = createSlice({
       const loopParent = (anchor: number[]) => {
         const position = anchor
         position.pop()
+        let parentIndeterminate
         while (position.length) {
           const parent = find([position], state.treeData)[0]
           const list = parent[children] as TreeNode[]
-          if (checked) {
-            const unchecked = list.find((node) => !node.checked)
-            if (unchecked) {
-              indeterminate(position, true)
-            } else {
-              indeterminate(position, false)
-              parent.checked = true
-            }
+          if (parentIndeterminate) {
+            parent.checked = false
+            parent.halfChecked = true
           } else {
-            const checked = list.find((node) => node.checked)
             if (checked) {
-              indeterminate(position, true)
+              const unchecked = list.find((node) => !node.checked)
+              if (unchecked) {
+                parent.halfChecked = true
+                parentIndeterminate = true
+              } else {
+                parent.halfChecked = false
+                parent.checked = true
+              }
             } else {
-              indeterminate(position, false)
-              parent.checked = false
+              const checked = list.find((node) => node.checked)
+              if (checked) {
+                parentIndeterminate = true
+                parent.halfChecked = true
+              } else {
+                parent.checked = false
+                parent.halfChecked = false
+              }
             }
           }
           position.pop()

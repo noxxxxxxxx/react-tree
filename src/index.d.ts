@@ -80,6 +80,7 @@ declare global {
     hidden: boolean
     checked: boolean
     selected: boolean
+    halfChecked: boolean
     edit: boolean
     slot?: boolean // means allow insert other tree node
     anchor: number[]
@@ -104,6 +105,7 @@ declare global {
   interface ConfigProps {
     theme?: Theme
     draggable?: boolean
+    checkable?: boolean
     icon?: ReactNode | string
     switcherIcon?: ReactNode
     fieldNames?: fieldNames

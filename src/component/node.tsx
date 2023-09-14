@@ -145,7 +145,6 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     if (lineRef?.current) lineRef.current.style.opacity = '0'
     target.style.boxShadow = 'none'
     if (root || !window.$tree.drag.over) return
-    console.log('drop - 开始移动')
     const node = find([anchor], treeData!)[0]
     const dragNodes = find(startData.anchors, treeData!)
     onDrop?.({ event, node, dragNodes, dragNodesKeys: startData.anchors })
