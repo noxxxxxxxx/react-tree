@@ -12,9 +12,9 @@ import {
   updateChecked,
   updateNode,
 } from '@/store/treeSlice'
-import { Status } from '@/index.d'
 import { RootState } from '@/store'
 import { MouseEventHandler } from 'react'
+import { FoldIconDisplay, Status } from '@/helper/const'
 import { allowPaste, findNode, getConfig, getNodeInfo } from '@/helper'
 
 export const useAction = () => {
@@ -89,14 +89,14 @@ export const useAction = () => {
 
   const mouseEnter: MouseEventHandler<HTMLElement> = (e) => {
     const { foldIconDisplay } = getConfig()
-    if (foldIconDisplay === 'hover') {
+    if (foldIconDisplay === FoldIconDisplay.hover) {
       e.currentTarget.classList.add('tree-mouse-in')
     }
   }
 
   const mouseLeave: MouseEventHandler<HTMLElement> = (e) => {
     const { foldIconDisplay } = getConfig()
-    if (foldIconDisplay === 'hover') {
+    if (foldIconDisplay === FoldIconDisplay.hover) {
       e.currentTarget.classList.remove('tree-mouse-in')
     }
   }
@@ -142,6 +142,10 @@ export const useAction = () => {
     dispatch(updateChecked([anchor, value]))
   }
 
+  const expand = (anchor: number[], value: boolean) => {
+    dispatch(updateNode([[anchor], 'expand', value]))
+  }
+
   return {
     select,
     over,
@@ -159,5 +163,6 @@ export const useAction = () => {
     hideMenu,
     handleTreeMouseDown,
     checked,
+    expand,
   }
 }

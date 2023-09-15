@@ -1,7 +1,7 @@
 import ID from './id'
 import type { Theme } from '../index.d'
 import { MouseEventHandler } from 'react'
-import { defaultConfig, themeConfig } from './const'
+import { defaultConfig, defaultNodeKey, themeConfig } from './const'
 export const LabelClass = '.node-name'
 export const StorageKey = 'tree:copy:node'
 
@@ -198,9 +198,20 @@ export const extendProperty = (list: TreeNode[], property: Record<string, unknow
  * @param list TreeNode[]
  */
 export const anchor = (list: TreeNode[], start: number[]) => {
-  const { children } = getFields()
+  const { children, slot } = getFields()
+  const { loadData } = getConfig()
   list.forEach((node, index) => {
     const position: number[] = start.slice()
+    // patch default key and value
+    defaultNodeKey.forEach((obj) => {
+      if (!(obj.key in node)) {
+        node[obj.key] = obj.value
+      }
+    })
+    // if loadData property exist, set node[slot] true
+    if (loadData) {
+      node[slot] = true
+    }
     position.push(index)
     node.anchor = position.slice()
     if (node[children]) {
@@ -277,9 +288,9 @@ const getMenuElement = () => {
 export const initConfig = (props: ConfigProps) => {
   const theme = props.theme ?? 'default'
   window.$tree = {
-    ...defaultConfig,
-    ...themeConfig[theme],
-    ...props,
+    ...defaultConfig, // global default config
+    ...themeConfig[theme], // theme default config
+    ...props, // custom config
     dragNode: null,
     throttleTimer: 0,
     throttleDelay: 200,
@@ -315,7 +326,7 @@ export const getConfig = () => {
  */
 export const getFields = () => {
   const { fieldNames } = getConfig()
-  return fieldNames
+  return fieldNames! // each theme has a default fieldName config
 }
 
 export const prevent: MouseEventHandler<HTMLElement> = (e: React.SyntheticEvent) => e.preventDefault()

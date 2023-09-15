@@ -7,10 +7,10 @@ import ContextMenu from '@/component/menu'
 import classNames from 'classnames'
 import { RootState } from '@/store'
 import Node from './node'
-import { FoldIconDisplay } from '@/index.d'
+import { FoldIconDisplay } from '@/helper/const'
 
 const Tree: FC<Props & ConfigProps> = (props): ReactElement => {
-  const { mouseEnter, mouseLeave, copy, cut, paste, remove, rightClick, handleTreeMouseDown } = useAction(props)
+  const { mouseEnter, mouseLeave, copy, cut, paste, remove, rightClick, handleTreeMouseDown } = useAction()
   const { data, theme } = props
   const [config, setConfig] = useState<Window['$tree']>()
   const lineRef = useRef<HTMLDivElement>(null)

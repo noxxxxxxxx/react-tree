@@ -28,9 +28,7 @@ export default defineConfig(({ mode }) => ({
       entry: resolve(__dirname, './src/index.tsx'),
       name: 'Tree',
       formats: ['es', 'umd'],
-      fileName: (format) => {
-        return `tree.${format}.js`
-      },
+      fileName: 'index',
     },
     copyPublicDir: false,
     rollupOptions: {

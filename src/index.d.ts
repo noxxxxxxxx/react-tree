@@ -1,22 +1,7 @@
 import { RefObject } from 'react'
+import type { Status } from './helper/const'
 
 declare module '*.scss'
-
-export enum Status {
-  dragging = 'dragging',
-  stop = 'stop',
-}
-
-export enum Theme {
-  default = 'default',
-  figma = 'figma',
-}
-
-export enum FoldIconDisplay {
-  always = 'always',
-  hover = 'hover',
-}
-
 interface fieldNames {
   name: string
   key: string
@@ -27,14 +12,7 @@ interface fieldNames {
 declare global {
   interface Window {
     $tree: {
-      theme: Theme
-      fieldNames: fieldNames
-      reverse: boolean
-      checkable: boolean
-      contextMenu: boolean
       dragNode: null | HTMLElement
-      foldIconDisplay: FoldIconDisplay
-      selectable: boolean
       throttleTimer: number | NodeJS.Timeout
       throttleDelay: number
       drag: {
@@ -46,7 +24,7 @@ declare global {
       }
       style: Record<string, string>
       menu: () => HTMLElement
-    }
+    } & ConfigProps
   }
 
   interface StateType {
@@ -69,21 +47,22 @@ declare global {
   // Tree Node
   interface TreeNode {
     [key: string]: unknown
-    id: string
+    id?: string
     // pid: string
     // order: number
-    root: boolean
-    name: string
-    icon: string
-    lock: boolean
-    fold: boolean
-    hidden: boolean
-    checked: boolean
-    selected: boolean
-    halfChecked: boolean
-    edit: boolean
+    root?: boolean
+    name?: string
+    icon?: string
+    lock?: boolean
+    fold?: boolean
+    hidden?: boolean
+    expand?: boolean
+    checked?: boolean
+    selected?: boolean
+    halfChecked?: boolean
+    edit?: boolean
     slot?: boolean // means allow insert other tree node
-    anchor: number[]
+    anchor?: number[]
     children?: TreeNode[]
   }
 
@@ -100,6 +79,7 @@ declare global {
     node?: TreeNode
     indent?: number[]
     virtual?: boolean
+    expand?: (anchor: TreeNode.anchor, value: boolean) => void
   }
 
   interface ConfigProps {
@@ -112,6 +92,7 @@ declare global {
     indentSize?: number
     foldIconDisplay?: FoldIconDisplay
     selectable?: boolean
+    loadData?: (anchor: TreeNode['anchor'], key: React.Key,  children: TreeNode[]) => Promise
     onDragStart?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
     onDragEnd?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void
     onDragOver?: (params: { event: React.SyntheticEvent; node: TreeNode }) => void

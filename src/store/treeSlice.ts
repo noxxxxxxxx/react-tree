@@ -1,6 +1,6 @@
 import { cleanData, clearCopyData, find, getCopyData, getFields, saveCopyData, sortAnchors, uuid } from '../helper'
 import { createSlice } from '@reduxjs/toolkit'
-import { Status } from '@/index.d'
+import { Status } from '@/helper/const'
 
 const initialState: StateType = {
   treeData: [],
@@ -94,7 +94,7 @@ export const treeSlice = createSlice({
                 parent.checked = true
               }
             } else {
-              const checked = list.find((node) => node.checked)
+              const checked = list.find((node) => node.checked || node.halfChecked)
               if (checked) {
                 parentIndeterminate = true
                 parent.halfChecked = true

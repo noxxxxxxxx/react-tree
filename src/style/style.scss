@@ -14,13 +14,13 @@
     width: 100%;
 
     // 选中 箭头旋转 - 子元素隐藏
-    input[name="node-fold"]:checked {
-      & + .node-info .label-fold {
+    [data-expand="true"] {
+      .label-fold {
         background-color: transparent;
-        transform: rotate(-90deg);
+        transform: rotate(0deg);
       }
 
-      & ~ .node-children {
+      & + .node-children {
         background-color: #0050c0;
         display: none;
       }
@@ -150,11 +150,12 @@
     display: none;
     position: absolute;
     top: 0;
-    right: 6px;
+    right: 0;
     height: 100%;
     align-items: center;
     justify-content: center;
     pointer-events: all;
+    transform: rotate(-90deg);
   }
 
   .lock-wrap,
@@ -244,4 +245,14 @@
 
 .tree-hidden {
   display: none;
+}
+
+.spin {
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }

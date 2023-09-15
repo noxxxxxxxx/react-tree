@@ -1,77 +1,78 @@
 import Tree from './index'
 import '@/style/style.scss'
 import { useEffect, useState } from 'react'
-// import Tree from '../dist/tree.es'
+// import Tree from '../dist/index'
 // import '../dist/style.css'
 
 const api = 'https://mock.apifox.cn/m1/3170270-0-default/data'
 const App: React.FC = () => {
-  const [data, setData] = useState<TreeNode[]>([])
+  const [data, setData] = useState<TreeNode[]>([
+    { name: 'Expand to load', id: '0' },
+    { name: 'Expand to load', id: '1' },
+    { name: 'Tree Node', id: '2' },
+  ])
+
+  // It's just a simple demo. You can use tree map to optimize update perf.
+  const updateTreeData = (list, key: React.Key, children) =>
+    list.map((node) => {
+      if (node.id === key) {
+        console.log(node.id, key, '----', children)
+        return {
+          ...node,
+          children,
+        }
+      }
+      if (node.children) {
+        return {
+          ...node,
+          children: updateTreeData(node.children, key, children),
+        }
+      }
+      return node
+    })
+  const onLoadData = (anchor: number[], key: React.Key, children: TreeNode[]) =>
+    new Promise<void>((resolve) => {
+      if (children.length) {
+        resolve()
+        return
+      }
+      setTimeout(() => {
+        setData((origin) =>
+          updateTreeData(origin, key, [
+            { name: 'Child Node', id: `${key}-0` },
+            { name: 'Child Node', id: `${key}-1` },
+          ]),
+        )
+        resolve()
+      }, 1000)
+      setTimeout(() => console.log(data), 1000)
+    })
 
   const config = {
-    theme: 'default',
-    draggable: true,
-    checkable: true,
-    // icon: <div>这里是icon</div>,
-    // indentSize: 30,
     foldIconDisplay: 'always',
-    fieldNames: {
-      name: 'name',
-      key: 'id',
-      children: 'children',
-      slot: 'slot',
-    },
-    // onDragStart: ({ event, node }) => {
-    //   console.log(event, node)
-    // },
-    // onDragEnd: ({ event, node }) => {
-    //   console.log(event, node)
-    // },
-    // onDragOver: ({ event, node }) => {
-    //   console.log(event, node)
-    // },
-    // onDragLeave: ({ event, node }) => {
-    //   console.log(event, node)
-    // },
-    // onDragEnter: ({ event, node }) => {
-    //   console.log(event, node)
-    // },
-    // onDrop: ({ event, node, dragNodes, dragNodesKeys }) => {
-    //   console.log('drops----')
-    //   console.log(event, node, dragNodes, dragNodesKeys)
-    // },
-    // selectable: false
-    // defaultSelectMulti: false,
-    // expandParent: true,
-    // expandAll: true,
-    // reverse: true,
-    // contextMenu: true,
-    // parentBgColor: 'red',
-    // parentColor: '#fff',
-    // childrenBgColor: 'blue',
-    // childrenColor: '#fff',
+    loadData: onLoadData,
+    checkable: true,
   }
 
-  useEffect(() => {
-    let ignore = false
-    const fetchData = async () => {
-      const res = await fetch(api)
-      if (ignore) return
-      ignore = true
-      const { data } = await res.json()
+  // useEffect(() => {
+  //   let ignore = false
+  //   const fetchData = async () => {
+  //     const res = await fetch(api)
+  //     if (ignore) return
+  //     ignore = true
+  //     const { data } = await res.json()
 
-      // extend data whatever you need
-      // const extendedList = extendProperty(data, {
-      //   slot: true,
-      // })
-      setData(data)
-      console.log(data)
-    }
-    fetchData()
-    return () => {
-      ignore = true
-    }
-  }, [])
+  //     // extend data whatever you need
+  //     // const extendedList = extendProperty(data, {
+  //     //   slot: true,
+  //     // })
+  //     setData(data)
+  //   }
+  //   fetchData()
+  //   return () => {
+  //     ignore = true
+  //   }
+  // }, [])
 
   return (
     <Tree

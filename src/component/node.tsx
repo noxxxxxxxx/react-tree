@@ -24,6 +24,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     onDrop,
     onDragEnd,
     onDragStart,
+    loadData,
   } = props
   const treeData = data
   const action = useAction()
@@ -33,12 +34,12 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
 
   const lock = (e: React.SyntheticEvent, node: TreeNode) => {
     e.stopPropagation()
-    action.lock(node.anchor, !node.lock)
+    action.lock(node.anchor!, !node.lock)
   }
 
   const hidden = (e: React.SyntheticEvent, node: TreeNode) => {
     e.stopPropagation()
-    action.hidden(node.anchor, !node.hidden)
+    action.hidden(node.anchor!, !node.hidden)
   }
 
   const dragStart = (event: React.SyntheticEvent, id: string, anchor: number[], index: number) => {
@@ -174,12 +175,13 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
         className="node-item"
         key={item[key] as string}
       >
-        <input
+        {/* <input
           className="tree-hidden"
           type="checkbox"
           id={`fold-${item.id}`}
           name="node-fold"
-        />
+          checked={item.expand}
+        /> */}
         <div
           className="node-info"
           data-root={item.root}
@@ -187,6 +189,7 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
           data-hidden={item.hidden}
           data-anchor={item.anchor}
           data-id={item[key]}
+          data-expand={item.expand}
           data-index={parentCount - index}
         >
           <div
@@ -207,11 +210,10 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
               node={item}
               virtual={true}
               indent={indent}
-              switcherIcon={switcherIcon}
             />
             {checkable && (
               <CheckBox
-                name={item.anchor.join()}
+                name={item.anchor!.join()}
                 node={item}
               />
             )}
@@ -228,6 +230,8 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
               node={item}
               virtual={false}
               indent={indent}
+              expand={action.expand}
+              loadData={loadData}
               switcherIcon={switcherIcon}
             />
           </div>
