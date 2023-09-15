@@ -208,6 +208,65 @@ type onDrop = (params: {
 }) => void;
 ```
 
+## loadData
+
+异步加载数据插入到 Node 节点的 children 中
+
+- **Type**
+
+```ts
+type loadData = (
+  anchor: TreeNode["anchor"],
+  key: React.Key,
+  children: TreeNode[]
+) => Promise;
+```
+
+- **Example**
+
+```tsx
+const [data, setData] = useState([]);
+// It's just a simple demo. You can use tree map to optimize update perf.
+const updateTreeData = (list, key: React.Key, children) =>
+  list.map((node) => {
+    if (node.id === key) {
+      return {
+        ...node,
+        children,
+      };
+    }
+    if (node.children) {
+      return {
+        ...node,
+        children: updateTreeData(node.children, key, children),
+      };
+    }
+    return node;
+  });
+
+const onLoadData = (anchor: number[], key: React.Key, children: TreeNode[]) =>
+  new Promise<void>((resolve) => {
+    if (children.length) {
+      resolve();
+      return;
+    }
+    setTimeout(() => {
+      setData((origin) =>
+        updateTreeData(origin, key, [
+          { name: "Child Node", id: `${key}-0` },
+          { name: "Child Node", id: `${key}-1` },
+        ])
+      );
+      resolve();
+    }, 1000);
+  });
+
+<Tree
+  loadData={onLoadData}
+  data={data}
+/>
+```
+
 <!-- - **Default** `string`
 
 - **Type**

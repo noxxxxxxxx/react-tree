@@ -2,7 +2,7 @@
 
 ## theme
 
-Set a default theme ui for tree component
+Set a default theme ui for tree component.
 
 ::: tip
 Each theme has default configurations, but you can override them by declaring specific attributes.
@@ -58,7 +58,7 @@ const icon = () => (
 
 ## switcherIcon
 
-The icon displayed when expanding or collapsing
+The icon displayed when expanding or collapsing.
 
 ::: tip
 For better performance, collapsible effect implemented using checkbox. Therefore, the direction of the passed element needs to be considered.
@@ -85,7 +85,7 @@ const switcherIcon = () => <DownOne />;
 
 ## indentSize
 
-Each tree node indentation spacing
+Each tree node indentation spacing.
 
 - **Default** `15`
 
@@ -206,6 +206,65 @@ type onDrop = (params: {
   dragNodes: TreeNode[];
   dragNodesKeys: TreeNode["anchor"][];
 }) => void;
+```
+
+## loadData
+
+Insert asynchronously loaded data into the `children` of a `Node.
+
+- **Type**
+
+```ts
+type loadData = (
+  anchor: TreeNode["anchor"],
+  key: React.Key,
+  children: TreeNode[]
+) => Promise;
+```
+
+- **Example**
+
+```tsx
+const [data, setData] = useState([]);
+// It's just a simple demo. You can use tree map to optimize update perf.
+const updateTreeData = (list, key: React.Key, children) =>
+  list.map((node) => {
+    if (node.id === key) {
+      return {
+        ...node,
+        children,
+      };
+    }
+    if (node.children) {
+      return {
+        ...node,
+        children: updateTreeData(node.children, key, children),
+      };
+    }
+    return node;
+  });
+
+const onLoadData = (anchor: number[], key: React.Key, children: TreeNode[]) =>
+  new Promise<void>((resolve) => {
+    if (children.length) {
+      resolve();
+      return;
+    }
+    setTimeout(() => {
+      setData((origin) =>
+        updateTreeData(origin, key, [
+          { name: "Child Node", id: `${key}-0` },
+          { name: "Child Node", id: `${key}-1` },
+        ])
+      );
+      resolve();
+    }, 1000);
+  });
+
+<Tree
+  loadData={onLoadData}
+  data={data}
+/>
 ```
 
 <!-- - **Default** `string`
