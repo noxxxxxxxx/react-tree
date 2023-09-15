@@ -3,7 +3,7 @@ import { googleAnalyticsPlugin } from "@vuepress/plugin-google-analytics";
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 
 export default {
-  base: "/tree/",
+  base: "/react-tree/",
   head: [
     ["link", { rel: "icon", type: "image/svg+xml", href: "/tree.svg" }],
     ["meta", { name: "theme-color", content: "#00A72F" }],
