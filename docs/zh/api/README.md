@@ -224,48 +224,12 @@ type loadData = (
 
 - **Example**
 
-```tsx
-const [data, setData] = useState([]);
-// It's just a simple demo. You can use tree map to optimize update perf.
-const updateTreeData = (list, key: React.Key, children) =>
-  list.map((node) => {
-    if (node.id === key) {
-      return {
-        ...node,
-        children,
-      };
-    }
-    if (node.children) {
-      return {
-        ...node,
-        children: updateTreeData(node.children, key, children),
-      };
-    }
-    return node;
-  });
-
-const onLoadData = (anchor: number[], key: React.Key, children: TreeNode[]) =>
-  new Promise<void>((resolve) => {
-    if (children.length) {
-      resolve();
-      return;
-    }
-    setTimeout(() => {
-      setData((origin) =>
-        updateTreeData(origin, key, [
-          { name: "Child Node", id: `${key}-0` },
-          { name: "Child Node", id: `${key}-1` },
-        ])
-      );
-      resolve();
-    }, 1000);
-  });
-
-<Tree
-  loadData={onLoadData}
-  data={data}
-/>
-```
+<iframe src="https://codesandbox.io/embed/loaddata-v4g46h?fontsize=14&hidenavigation=1&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="loadData"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
 <!-- - **Default** `string`
 
