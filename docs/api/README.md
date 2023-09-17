@@ -231,6 +231,14 @@ type loadData = (
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
+## expandAll
+
+If the `expand` field is not present in the TreeData, expand all nodes by default on initialization.
+
+- **Type** `boolean`
+
+- **Default** `false`
+
 <!-- - **Default** `string`
 
 - **Type**

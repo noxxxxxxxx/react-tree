@@ -231,6 +231,15 @@ type loadData = (
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
+## expandAll
+
+如果 TreeData 中没有 `expand` 字段，初始化时默认展开所有节点
+
+- **Type** `boolean`
+
+- **Default** `false`
+
+
 <!-- - **Default** `string`
 
 - **Type**
