@@ -23,7 +23,7 @@ export default {
     },
   },
   theme: defaultTheme({
-    repo: "https://github.com/noxxxxxxxx/tree",
+    repo: "https://github.com/noxxxxxxxx/react-tree",
     docsBranch: "doc",
     editLink: true,
     lastUpdated: true,
