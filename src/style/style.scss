@@ -21,8 +21,7 @@
       }
 
       & + .node-children {
-        background-color: #0050c0;
-        display: none;
+        display: block;
       }
     }
 
@@ -150,7 +149,7 @@
     display: none;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 4px;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -244,6 +243,10 @@
 }
 
 .tree-hidden {
+  display: none;
+}
+
+.node-children {
   display: none;
 }
 

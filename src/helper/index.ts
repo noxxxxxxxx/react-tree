@@ -195,11 +195,12 @@ export const extendProperty = (list: TreeNode[], property: Record<string, unknow
 
 /**
  * Generate anchor for each node
+ * fill in default required attributes
  * @param list TreeNode[]
  */
-export const anchor = (list: TreeNode[], start: number[]) => {
+export const patchNodes = (list: TreeNode[], start: number[]) => {
   const { children, slot } = getFields()
-  const { loadData } = getConfig()
+  const { loadData, expandAll } = getConfig()
   list.forEach((node, index) => {
     const position: number[] = start.slice()
     // patch default key and value
@@ -212,10 +213,14 @@ export const anchor = (list: TreeNode[], start: number[]) => {
     if (loadData) {
       node[slot] = true
     }
+    // set expand true
+    if (expandAll && !('expand' in node)) {
+      node.expand = true
+    }
     position.push(index)
     node.anchor = position.slice()
     if (node[children]) {
-      anchor(node[children] as TreeNode[], position)
+      patchNodes(node[children] as TreeNode[], position)
     }
   })
   return list

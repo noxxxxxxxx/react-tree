@@ -21,7 +21,7 @@ export const useAction = () => {
   const dispatch = useDispatch()
   const startData = useSelector((state: RootState) => state.tree.start)
 
-  const handleTreeMouseDown = (e: MouseEvent) => {
+  const handleTreeMouseDown = () => {
     hideMenu()
   }
 

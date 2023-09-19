@@ -1,36 +1,33 @@
-import { find, findLabel, getFields, mergeAnchor, prevent } from '@/helper'
+import { find, findLabel, getFields, mergeAnchor } from '@/helper'
 import { type FC, type ReactElement } from 'react'
 import { useAction } from '@/hooks/useAction'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
-import CheckBox from './checkbox'
-import Action from './action'
-import Indent from './indent'
-import Icon from './icon'
+import Node from './node'
 
-const Node: FC<Props & ConfigProps> = (props): ReactElement => {
+const Wrapper: FC<Props & ConfigProps> = (props): ReactElement => {
   const {
     data,
     lineRef,
     containerRef,
+
     defaultSelectMulti,
-    draggable,
-    checkable,
-    icon,
-    switcherIcon,
     onDragEnter,
     onDragLeave,
     onDragOver,
     onDrop,
     onDragEnd,
     onDragStart,
-    loadData,
+    draggable,
+    checkable,
+    icon,
+    switcherIcon,
   } = props
-  const treeData = data
+  const treeData = data?.slice().reverse()
   const action = useAction()
   const startData = useSelector((state: RootState) => state.tree.start)
   const base = (containerRef?.current as HTMLElement)?.getBoundingClientRect().top
-  const { key } = getFields()
+  const { key, children } = getFields()
 
   const lock = (e: React.SyntheticEvent, node: TreeNode) => {
     e.stopPropagation()
@@ -152,10 +149,10 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     action.move()
   }
 
-  const mouseDown = (e: MouseEvent, id: string, anchor: number[], index: number) => {
-    if (startData.ids.includes(id) || e.button === 2) return
+  const mouseDown = (event: MouseEvent, id: string, anchor: number[], index: number) => {
+    if (startData.ids.includes(id) || event.button === 2) return
     // if (e.shiftKey) {}
-    if (e.metaKey && defaultSelectMulti) {
+    if (event.metaKey && defaultSelectMulti) {
       const ids = [...startData.ids, id]
       const anchors = mergeAnchor(startData.anchors, anchor)
       const indexes = anchors.map((anchor) => anchor.slice().pop()!)
@@ -169,94 +166,32 @@ const Node: FC<Props & ConfigProps> = (props): ReactElement => {
     return <></>
   }
 
-  const node = (tree: TreeNode[], indent: any[], parentCount: number) =>
-    tree.map((item: TreeNode, index) => (
-      <div
-        className="node-item"
-        key={item[key] as string}
-      >
-        {/* <input
-          className="tree-hidden"
-          type="checkbox"
-          id={`fold-${item.id}`}
-          name="node-fold"
-          checked={item.expand}
-        /> */}
-        <div
-          className="node-info"
-          data-root={item.root}
-          data-lock={item.lock}
-          data-hidden={item.hidden}
-          data-anchor={item.anchor}
-          data-id={item[key]}
-          data-expand={item.expand}
-          data-index={parentCount - index}
-        >
-          <div
-            className={`node-label ${item?.selected ? 'selected' : ''} ${item?.edit ? 'edit' : ''}`}
-            style={{ color: item.hidden ? '#bebebe' : 'inherit' }}
-            draggable={!item.root && !item.lock && draggable}
-            onDragStart={(e) => dragStart(e, item.id, item.anchor, parentCount - index)}
-            onDragEnter={(e) => dragEnter(e, item.anchor)}
-            onDragOver={(e) =>
-              dragOver(e, item.root, item.slot, item.id, item.anchor, parentCount - index, item?.children?.length || 0)
-            }
-            onDragLeave={(e) => dragLeave(e, item.anchor)}
-            onDragEnd={(e) => dragEnd(e, item.anchor)}
-            onDrop={(e) => drop(e, item.root, item.anchor)}
-            onMouseDown={(e) => mouseDown(e, item.id, item.anchor, index)}
-          >
-            <Indent
-              node={item}
-              virtual={true}
-              indent={indent}
-            />
-            {checkable && (
-              <CheckBox
-                name={item.anchor!.join()}
-                node={item}
-              />
-            )}
-            <div className="node-name">
-              <Icon
-                Icom={icon || item.icon}
-                node={item}
-              />
-              <span>{item.name}</span>
-            </div>
-          </div>
-          <div className="fold-wrap">
-            <Indent
-              node={item}
-              virtual={false}
-              indent={indent}
-              expand={action.expand}
-              loadData={loadData}
-              switcherIcon={switcherIcon}
-            />
-          </div>
-          {!item.root && (
-            <Action
-              node={item}
-              lock={lock}
-              hidden={hidden}
-              prevent={prevent}
-            />
-          )}
-        </div>
-        {item.children && (
-          <div
-            className="node-children"
-            style={{
-              color: item.hidden ? '#bebebe' : 'inherit',
-            }}
-          >
-            {node(item.children.slice().reverse(), indent.concat([0]), item.children.length - 1)}
-          </div>
-        )}
-      </div>
-    ))
-  return <>{node(treeData.slice().reverse(), [0], treeData.length - 1)}</>
+  const result: ReactElement[] = treeData.map((node: TreeNode, index) => (
+    <Node
+      node={node}
+      indent={[0]}
+      index={index}
+      parentCount={treeData.length - 1}
+      key={node[key] as string}
+      lock={lock}
+      hidden={hidden}
+      dragStart={dragStart}
+      dragEnter={dragEnter}
+      dragOver={dragOver}
+      dragLeave={dragLeave}
+      dragEnd={dragEnd}
+      drop={drop}
+      mouseDown={mouseDown}
+      draggable={draggable}
+      checkable={checkable}
+      icon={icon}
+      action={action}
+      children={children}
+      switcherIcon={switcherIcon}
+    />
+  ))
+
+  return result
 }
 
-export default Node
+export default Wrapper

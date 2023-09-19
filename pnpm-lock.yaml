@@ -14,6 +14,9 @@ dependencies:
   lu2:
     specifier: ^2023.8.5
     version: 2023.8.5
+  mitt:
+    specifier: ^3.0.1
+    version: 3.0.1
   react:
     specifier: '>=18.2.0'
     version: 18.2.0
@@ -2378,6 +2381,10 @@ packages:
       is-plain-obj: 1.1.0
       kind-of: 6.0.3
     dev: true
+
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
 
   /mlly@1.4.0:
     resolution: {integrity: sha512-ua8PAThnTwpprIaU47EPeZ/bPUVp2QYBbWMphUQpVdBI3Lgqzm5KZQ45Agm3YJedHXaIHl6pBGabaLSUPPSptg==}

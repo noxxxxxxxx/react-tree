@@ -1,5 +1,4 @@
 import { RefObject } from 'react'
-import type { Status } from './helper/const'
 
 declare module '*.scss'
 interface fieldNames {
@@ -9,7 +8,31 @@ interface fieldNames {
   slot: string
 }
 
+interface Action {
+  expand: Props['expand']
+}
+
+enum Status {
+  dragging = 'dragging',
+  stop = 'stop',
+}
+
+enum Theme {
+  default = 'default',
+  figma = 'figma',
+}
+
+enum FoldIconDisplay {
+  always = 'always',
+  hover = 'hover',
+}
+
+
 declare global {
+  type Events = {
+    filter: string | undefined;
+  };
+
   interface Window {
     $tree: {
       dragNode: null | HTMLElement
@@ -48,8 +71,6 @@ declare global {
   interface TreeNode {
     [key: string]: unknown
     id?: string
-    // pid: string
-    // order: number
     root?: boolean
     name?: string
     icon?: string
@@ -113,5 +134,29 @@ declare global {
     childrenBgColor?: string
     childrenColor?: string
     parentColor?: string
+    searchValue?: string
+  }
+
+  interface NodeProps {
+    node: TreeNode
+    index: number
+    indent: number[]
+    parentCount: number
+    action: Action
+    dragStart: (event: React.SyntheticEvent, id: string, anchor: number[], index: number) => void
+    dragEnter: (event: React.SyntheticEvent, anchor: number[]) => void
+    dragOver: (
+      event: React.SyntheticEvent & React.MouseEvent<HTMLDivElement>,
+      root: boolean,
+      group: boolean,
+      id: string,
+      anchor: number[],
+      index: number,
+      selfCount: number,
+    ) => void
+    dragLeave: (event: React.SyntheticEvent, anchor: number[]) => void
+    dragEnd: (event: React.SyntheticEvent, anchor: number[]) => void
+    drop: (event: React.SyntheticEvent, root: boolean, anchor: number[]) => void
+    mouseDown: (event: MouseEvent, id: string, anchor: number[], index: number) => void
   }
 }

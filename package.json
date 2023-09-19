@@ -31,19 +31,21 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode production",
+    "build": "vite build --mode production && npm run ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "test": "vitest"
+    "test": "vitest",
+    "ts": "cp src/index.d.ts dist/index.d.ts"
   },
   "dependencies": {
-    "lu2": "^2023.8.5"
+    "lu2": "^2023.8.5",
+    "mitt": "^3.0.1"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": ">=1.9.5",
+    "classnames": "^2.3.2",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
-    "react-redux": ">=8.1.2",
-    "classnames": "^2.3.2"
+    "react-redux": ">=8.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",

@@ -1,17 +1,18 @@
 import { type FC, type ReactElement, useEffect, useRef, useState } from 'react'
-import { anchor, getConfig, initConfig } from '@/helper'
+import { patchNodes, getConfig, initConfig } from '@/helper'
 import { useDispatch, useSelector } from 'react-redux'
+import { FoldIconDisplay } from '@/helper/const'
 import { initTreeData } from '@/store/treeSlice'
 import { useAction } from '@/hooks/useAction'
 import ContextMenu from '@/component/menu'
 import classNames from 'classnames'
 import { RootState } from '@/store'
-import Node from './node'
-import { FoldIconDisplay } from '@/helper/const'
+import Wrapper from './node/wrapper'
+import { emitter } from '@/event'
 
 const Tree: FC<Props & ConfigProps> = (props): ReactElement => {
   const { mouseEnter, mouseLeave, copy, cut, paste, remove, rightClick, handleTreeMouseDown } = useAction()
-  const { data, theme } = props
+  const { data, theme, searchValue } = props
   const [config, setConfig] = useState<Window['$tree']>()
   const lineRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -22,12 +23,16 @@ const Tree: FC<Props & ConfigProps> = (props): ReactElement => {
     if (!data || data.length === 0) return
     initConfig(props)
     setConfig(getConfig())
-    dispatch(initTreeData(anchor(data, []))) // init tree data with anchor
+    dispatch(initTreeData(patchNodes(data, []))) // init tree data
     document.documentElement.addEventListener('mousedown', handleTreeMouseDown)
     return () => {
       document.documentElement.removeEventListener('mousedown', handleTreeMouseDown)
     }
   }, [data])
+
+  useEffect(() => {
+    emitter.emit('filter', searchValue)
+  }, [searchValue])
 
   if (!config) return <></>
 
@@ -44,7 +49,7 @@ const Tree: FC<Props & ConfigProps> = (props): ReactElement => {
       onContextMenu={rightClick}
     >
       <div className="tree-container">
-        <Node
+        <Wrapper
           {...config}
           data={treeData}
           lineRef={lineRef}

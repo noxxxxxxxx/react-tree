@@ -1,13 +1,17 @@
-# Tree
+# Figma Tree
 
 ![npm](https://img.shields.io/npm/dm/figma-tree) [![npm](https://img.shields.io/npm/v/figma-tree.svg)](https://www.npmjs.com/package/figma-tree) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/noxxxxxxx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/figma-tree)
 
 
-A React tree component that looks similar to Figma tree, a tree ui component that has all the tree functionalities
+A React tree component that looks similar to Figma tree.
 
-## Document
+A tree ui component that has all the tree functionalities.
 
-[https://noxxxxxxxx.github.io/tree/](https://noxxxxxxxx.github.io/tree/)
+Support multiple themes and assemble the desired style through API.
+
+## Document & Demo
+
+[https://noxxxxxxxx.github.io/figma-tree/](https://noxxxxxxxx.github.io/react-tree/)
 
 ## How to use
 
